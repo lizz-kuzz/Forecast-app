@@ -6,10 +6,6 @@
 #include "../include/json_parsing.h"
 
 int main() {
-
-    
-    CURL *curl;
-    CURLcode res;
     std::string readBuffer;
 
     HTTP::Request weather;

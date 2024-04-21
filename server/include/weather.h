@@ -12,8 +12,12 @@ struct Data {
 
 enum Weather_t {
     Clear_sky,
-    Clouds, 
+    Few_clouds, 
+    Scattered_clouds, 
+    Overcast_clouds,
     Light_rain, 
+    Moderate_rain, 
+    Broken_clouds,
     None,
 };
 

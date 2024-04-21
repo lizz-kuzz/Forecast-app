@@ -30,11 +30,23 @@ void Parsing::parse_data(Data& data, json& info, size_t pos) {
 }
 
 Weather_t Parsing::parse_weather(json& info, size_t pos) {
-    std::string str_buf = info["list"][pos]["weather"][0]["main"];
-    if (str_buf == "clear_sky") {
+    std::string str_buf = info["list"][pos]["weather"][0]["description"];
+    if (str_buf == "clear sky") {
         return Clear_sky;
-    } else if (str_buf == "clouds") {
-        return Clouds;
+    } else if (str_buf == "few clouds") {
+        return Few_clouds;
+    } else if (str_buf == "few clouds") {
+        return Few_clouds;
+    } else if (str_buf == "scattered clouds") {
+        return Scattered_clouds;
+    } else if (str_buf == "overcast clouds") {
+        return Overcast_clouds;
+    } else if (str_buf == "light rain") {
+        return Light_rain;
+    } else if (str_buf == "moderate rain") {
+        return Moderate_rain;
+    } else if (str_buf == "broken clouds") {
+        return Broken_clouds;
     }
     return None;//add more variants
 
