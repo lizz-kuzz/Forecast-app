@@ -17,27 +17,6 @@ int main() {
 
     weather.get_buffer();
 
-
-    // curl = curl_easy_init();
-    // if (curl) {
-    //     curl_easy_setopt(curl, CURLOPT_URL, "api.openweathermap.org/data/2.5/forecast?lat=55.939831&lon=37.503434&exclude=daily&current.temp=Celsius&units=metric&appid=464a485473994b656c2f1419b57a028a");
-    //     std::cout << "dfg0" << std::endl;
-    
-    //     /* tell it to "upload" to the URL */
-    //     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
-    //     /* set where to read from */
-    //     curl_easy_setopt(curl, CURLOPT_WRITEDATA, &readBuffer);
-
-    //     res = curl_easy_perform(curl);
-        
-    //     if(res != CURLE_OK) {
-    //         std::cout << "curl_easy_perform() failed:" << curl_easy_strerror(res) << std::endl;
-    //     }
-
-    //     curl_easy_cleanup(curl);
-    //     if (res == CURLE_OK)  std::cout << readBuffer << std::endl; 
-    // }
-    // return 0;
 }
 
 // #ifdef _MSC_VER
