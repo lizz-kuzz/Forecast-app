@@ -1,5 +1,5 @@
-#include "../include/weather.h"
-#include "../include/json_parsing.h"
+#include "weather.h"
+#include "json_parsing.h"
 
 Weather_info::Weather_info(nlohmann::json info, size_t pos) : 
                             temp(info["list"][pos]["main"]["temp"]),

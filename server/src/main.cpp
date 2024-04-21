@@ -2,8 +2,8 @@
 
 #include <iostream>
 #include <curl/curl.h>
-#include "../include/http_request.h"
-#include "../include/json_parsing.h"
+#include "http_request.h"
+#include "json_parsing.h"
 
 int main() {
     std::string readBuffer;

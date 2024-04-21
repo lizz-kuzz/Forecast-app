@@ -19,3 +19,4 @@ add_executable(
   
 target_link_libraries(weather_server curl)
 target_include_directories(weather_server PUBLIC include)
+target_include_directories(weather_server PUBLIC ../external_include)

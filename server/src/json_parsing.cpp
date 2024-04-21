@@ -1,6 +1,6 @@
-#include "../include/json_parsing.h"
+#include "json_parsing.h"
 
-void Parsing::parse(const std::string& buf) {
+Weather_info* Parsing::parse(const std::string& buf) {
     json info;
 
     info = json::parse(buf);
@@ -48,6 +48,6 @@ Weather_t Parsing::parse_weather(json& info, size_t pos) {
     } else if (str_buf == "broken clouds") {
         return Broken_clouds;
     }
-    return None;//add more variants
+    return None; //add more variants
 
 }
