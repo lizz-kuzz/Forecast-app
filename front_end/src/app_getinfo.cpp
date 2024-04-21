@@ -43,6 +43,13 @@ std::string window_choose_name()
 
     //------------------------------------------------------------------------------------------------------
 
+    //рисуем рамку
+	sf::RectangleShape shape(sf::Vector2f(700, 700));
+    shape.setSize(sf::Vector2f(1300, 200));
+    shape.setPosition(sf::Vector2f(300, 360));
+	shape.setOutlineThickness(10);
+	shape.setOutlineColor(sf::Color(255, 255, 255));
+	shape.setFillColor(sf::Color::Transparent);
 
     //------------------------------------------------------------------------------------------------------
 
@@ -97,7 +104,9 @@ std::string window_choose_name()
 
         window.clear();      
 
+        
         window.draw(background);
+        window.draw(shape);
         window.draw(titul);
         window.draw(playerText);
 
