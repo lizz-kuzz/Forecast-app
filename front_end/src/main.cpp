@@ -1,6 +1,7 @@
 //#include "inc/tools.h"
 #include "/home/kate/Рабочий стол/CPP/Forecast-app/front_end/include/app_window.h"
 #include "/home/kate/Рабочий стол/CPP/Forecast-app/front_end/include/app_menu.h"
+#include "/home/kate/Рабочий стол/CPP/Forecast-app/front_end/include/app_textfield.h"
 
 //константы параметров окна
 const float window_width = 1920;
@@ -13,9 +14,22 @@ const std::string simple_thick_font = "res/font/BlissproMedium.otf";
 //доступ к функциям sfml
 using namespace sf; 
 
+//константы для имени пользователя
+const size_t MAX_NAME_SIZE = 10;
+
+//--------------------------------------------------------------------------------------------------
+int window_choose_name();
+
+//--------------------------------------------------------------------------------------------------
 
 int main()
 {
+
+    window_choose_name();
+    
+    //===============================================================================================
+    //===============================================================================================
+
     //sf::RenderWindow create_window(size_t window_width, size_t window_height);
     // 
     // Создаём окно start_window 
@@ -118,4 +132,86 @@ int main()
 }
 
 
+int window_choose_name()
+{
+    sf::RenderWindow window;
+    create_window(window, window_width, window_height);   
 
+    //------------------------------------------------------------------------------------------------------
+
+    // Устанавливаем фон экрана меню
+    sf::RectangleShape background(Vector2f(window_width, window_height)); //прямоугольник в размер окна
+
+    Texture texture_window;          // (***)
+    if (!texture_window.loadFromFile(simple_blue_bg)) return 1;
+    background.setTexture(&texture_window);
+
+    //------------------------------------------------------------------------------------------------------
+
+    // Шрифт для названия экрана 
+    sf::Font font; //объект шрифт // (***)
+    if (!font.loadFromFile(simple_thick_font)) return 2;
+
+    // Текст с названием экрана
+    sf::Text titul; //объект заголовок
+    titul.setFont(font);
+
+    TextFormat Ftext;
+    Ftext.size_font = 150;                          //размер шрифта
+    Ftext.menu_text_color = Color(0, 191, 255);     //цвет текста
+    Ftext.bord = 3;                                 //толщина обводки букв
+    Ftext.border_color = Color(255, 255, 255);      //цвет обводки
+    init_text(titul, 400, 50, "Enter your name", Ftext);     // 7000, 50 - позиция
+
+    //------------------------------------------------------------------------------------------------------
+
+
+    //------------------------------------------------------------------------------------------------------
+
+    sf::Event event;
+    sf::String playerInput;
+
+    sf::Text playerText;
+    playerText.setFont(font);
+
+    TextFormat F_ntext;
+    F_ntext.size_font = 100;                          //размер шрифта
+    F_ntext.menu_text_color = Color(0, 191, 255);     //цвет текста
+    F_ntext.bord = 3;                                 //толщина обводки букв
+    F_ntext.border_color = Color(255, 255, 255);      //цвет обводки
+    init_text(playerText, 700, 400, "", F_ntext);     // 7000, 50 - позиция
+
+    size_t name_size = 0;
+
+    while (window.isOpen())
+        {
+             while(window.pollEvent(event))
+                {
+                if (event.type == Event::KeyReleased)
+                {
+                    if (event.key.code == Keyboard::Enter) { return 0; }
+                }
+                if (event.type == sf::Event::TextEntered && name_size <= MAX_NAME_SIZE)
+                {
+                    if(event.text.unicode < 128)
+                        {
+                            playerInput += event.text.unicode;
+                            playerText.setString(playerInput);
+                            name_size++;
+                            //std::cout << playerInput.toAnsiString() << std::endl;
+                        }
+                }
+                else if (event.type == Event::Closed || event.key.code == Keyboard::Escape) { window.close(); return 0;}
+                window.draw(playerText);
+                }
+        window.clear();      
+
+        window.draw(background);
+        window.draw(titul);
+        window.draw(playerText);
+
+        window.display();
+        }
+
+    return 0;
+}
