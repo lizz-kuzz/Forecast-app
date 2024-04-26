@@ -7,32 +7,42 @@
 #include "database.h"
 
 int main() {
+
+    User_info my {"real", 1};
+    Database db;
+    db.add_info_about_city(my);
+    std::cout << "OK" << std::endl;
+
     // std::string readBuffer;
 
     // HTTP::Request weather;
+
+    
     // weather.get_buffer_from_api(); //add here coord diffrent countries + bd
 
-    // Parsing::parse(weather.buffer);
+    // Parsing city_weather(weather.buffer);
 
-    pqxx::connection weather_database{"postgresql://lizzkuzz:1511@localhost/testdb"};
-    //   pqxx::connection c{"postgresql://accounting@localhost/company"};
-    pqxx::work request{weather_database};
+    // pqxx::connection weather_database{"postgresql://lizzkuzz:1511@localhost/weatherdb"};
+    // pqxx::work request{weather_database};
 
-  // For querying just one single value, the transaction has a shorthand method
-  // query_value().
-  //
-  // Use txn.quote() to escape and quote a C++ string for use as an SQL string
-  // in a query's text.
-    std::string city = "moscow";
-    std::string sql_request = "select city, temp from table_temp where table_temp.city = '" + city + "';";
-    pqxx::result res_request{request.exec(sql_request.c_str())};
-    std::cout << res_request.empty() << std::endl;
-    for (auto row : res_request) {
-        std::cout 
-      // Address column by name.  Use c_str() to get C-style string.
-        << row[0] << " " << row[1]
-      // Address column by zero-based index.  Use as<int>() to parse as int.
-        << std::endl;
-    }
+
+    // int city = 1;
+    // std::string sql_request1{"insert into weather(user_name, city, data_," 
+    //                         "time_, temp, temp_feels_like, pressure, "
+    //                         "wind, type_) " 
+    //                         "values" 
+    //                       "('marina', 2, '2024-04-26', '3:00:00', 10.2, 19.4, 444, 5.3, 'sunny');"};
+    // pqxx::result res_request1{request.exec(sql_request1.c_str())};
+    // std::string sql_request2{"select city, temp from weather where user_name = 'marina'"};
+    // pqxx::result res_request2{request.exec(sql_request2.c_str())};
+    // std::cout << res_request2.empty() << std::endl;
+    // for (auto row : res_request2) {
+    //     std::cout 
+    //     << row[0] << " " << row[1]
+    //     << std::endl;
+    // }
+
+    // request.commit();
+
 
 }

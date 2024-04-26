@@ -7,6 +7,8 @@ Weather_info::Weather_info(nlohmann::json info, size_t pos) :
                             pressure(info["list"][pos]["main"]["pressure"]),
                             wind(info["list"][pos]["wind"]["speed"])
 {
-    Parsing::parse_data(data, info, pos);
+    Parsing::parse_data(date, info, pos);
     type = Parsing::parse_weather(info, pos);
+    city = 1;
+    // user_name = "atar";
 }
