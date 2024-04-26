@@ -4,7 +4,9 @@
 
 // using namespace pqxx; remember!!
 
-namespace Database {
+class Database {
+    pqxx::work request;
 
+    Database();
 
 }//namespace Database

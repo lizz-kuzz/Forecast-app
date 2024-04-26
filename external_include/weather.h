@@ -1,4 +1,5 @@
-#pragma once 
+#pragma once
+
 #include <iostream>
 #include <nlohmann/json.hpp> 
 const size_t JSON_SIZE = 39;
@@ -24,6 +25,8 @@ enum Weather_t {
 
 class Weather_info {
 private:
+//add std::string user_name
+// std::string city; 
     double temp;
     double temp_feels_like;
     double pressure;
