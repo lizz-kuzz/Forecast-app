@@ -11,8 +11,23 @@ int main() {
     User_info my {"real", 1};
     Database db;
     // db.add_info_user(my);
-    db.update_info_user(my);
+    // db.update_info_user(my);
+
+    Weather_info* arr = new Weather_info[WEATHER_ARR_SIZE];
+    db.give_info_user(my, arr);
     std::cout << "OK" << std::endl;
+
+
+    for (size_t i = 0; i < WEATHER_ARR_SIZE; ++i) {
+        std::string sql_request{"values" 
+                            "('" + my.user_name + "', " + std::to_string(my.city) + 
+                            ", '" + arr[i].date.date + "', '" + arr[i].date.time + 
+                            "', " + std::to_string(arr[i].temp) + ", " + std::to_string(arr[i].temp_feels_like) + 
+                            ", " +std::to_string(arr[i].pressure) + ", " + std::to_string(arr[i].wind) + ", '" + std::to_string(arr[i].type) + "');"};
+        std::cout << sql_request << std::endl;
+    }
+
+    delete[] arr;
 
     // std::string readBuffer;
 

@@ -27,8 +27,11 @@ insert into weather(
     ('kate', 1, '2024-04-26', '3:00:00', 12.2, 12.4, 345, 5.3, 'cloudy');
 
 delete from weather
-where weather.user_name = 'liza' and
-      wether.city = 1;
+where user_name = 'liza' and
+      city = 1;
 
+select * from weather 
+where user_name = 'liza' and
+      city = 1;
 
 

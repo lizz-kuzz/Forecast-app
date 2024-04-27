@@ -1,6 +1,7 @@
 #pragma once 
 
 #include <pqxx/pqxx>
+#include <optional>
 #include "weather.h"
 #include "http_request.h"
 #include "json_parsing.h"
@@ -19,5 +20,8 @@ public:
     // Weather_info request_by_name(User_info client);
     void add_info_user(const User_info& client);
     void update_info_user(const User_info& client);
+    void give_info_user(const User_info& client, Weather_info *arr);
+
+
 // добавить проверку на то есть клиент или нет если есть то обновить инфу а если нет то отправить на клиента что такого пользователя нет 
 };
