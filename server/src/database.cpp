@@ -63,3 +63,11 @@ void Database::give_info_user(const User_info& client, Weather_info *arr) {
 }
 
 
+bool Database::is_info_exist(const User_info& client) {
+    std::string sql_request{"select * from weather "
+                            "where user_name = '" + client.user_name + "' and " 
+                            "city = " + std::to_string(client.city) + ";"};
+    pqxx::result res_request{request.exec(sql_request.c_str())};   
+
+    return res_request.empty();
+}
