@@ -17,6 +17,7 @@ public:
     ~Database();
 
     // Weather_info request_by_name(User_info client);
-    Weather_info add_info_about_city(const User_info& client);
-
+    void add_info_user(const User_info& client);
+    void update_info_user(const User_info& client);
+// добавить проверку на то есть клиент или нет если есть то обновить инфу а если нет то отправить на клиента что такого пользователя нет 
 };

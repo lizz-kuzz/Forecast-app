@@ -10,14 +10,11 @@ Database::~Database() {
 
 // }
 
-Weather_info Database::add_info_about_city(const User_info& client) {
-    std::string readBuffer;
-
+void Database::add_info_user(const User_info& client) {
     HTTP::Request weather;
     weather.get_buffer_from_api(); //TODO: add here coord diffrent countries + bd
 
     Parsing city_weather(weather.buffer);
-
 
     for (size_t i = 0; i < WEATHER_ARR_SIZE; ++i) {
         std::string sql_request{"insert into weather(user_name, city, data_," 
@@ -32,10 +29,15 @@ Weather_info Database::add_info_about_city(const User_info& client) {
         
     }
 
-        // std::cout << " OK!" << std::endl;
-
-
 }
 
+
+void Database::update_info_user(const User_info& client) {
+    std::string sql_request{"delete from weather "
+                            "where user_name = '" + client.user_name + "' and " 
+                            "city = " + std::to_string(client.city) + ";"};
+    pqxx::result res_request{request.exec(sql_request.c_str())};   
+    add_info_user(client);
+}
 
 

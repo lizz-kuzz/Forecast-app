@@ -8,7 +8,6 @@ Parsing::Parsing(const std::string& buf) {
     for (size_t i = 0; i < WEATHER_ARR_SIZE; ++i) {
        arr[i] = Weather_info(info, i);
     }
-
 }
 
 void Parsing::parse_data(Datetime& date, json& info, size_t pos) {

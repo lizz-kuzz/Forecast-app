@@ -10,7 +10,8 @@ int main() {
 
     User_info my {"real", 1};
     Database db;
-    db.add_info_about_city(my);
+    // db.add_info_user(my);
+    db.update_info_user(my);
     std::cout << "OK" << std::endl;
 
     // std::string readBuffer;
