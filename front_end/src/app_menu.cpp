@@ -1,17 +1,17 @@
-#include "/home/kate/Рабочий стол/CPP/Forecast-app/front_end/include/tools.h"
-#include "/home/kate/Рабочий стол/CPP/Forecast-app/front_end/include/app_menu.h"
+#include "tools.h"
+#include "app_menu.h"
 using namespace sf;
 
 //------------------------------------------------------------------------------------------------------
 
-
+const std::string PATH_FONT = "../front_end/res/font/BlissproMedium.otf";
 //конструктор //size_t //++i
 //передаем ссылку на графическое окно, координаты меню, массив названий пунктов меню
 app::app_menu::app_menu(sf::RenderWindow& window, float menux, float menuy, int sizeFont, int step, std::vector<std::string>& name)
 	:menu_X(menux), menu_Y(menuy), menu_Step(step), max_menu(static_cast<int>(name.size())), size_font(sizeFont), main_menu(name.size()), mywindow(window)
 {
 	//загрузка шрифта
-	if (!font.loadFromFile("res/font/BlissproMedium.otf")) exit(32);
+	if (!font.loadFromFile(PATH_FONT)) exit(32);
 	
 
 	for (int i = 0, ypos = static_cast<int>(menu_Y); i < max_menu; ++i, ypos += menu_Step)

@@ -1,32 +1,24 @@
 #include "json_parsing.h"
 
-Weather_info* Parsing::parse(const std::string& buf) {
+Parsing::Parsing(const std::string& buf) {
     json info;
 
     info = json::parse(buf);
-    Weather_info* weather_arr = new Weather_info[JSON_SIZE];
-    for (size_t i = 0; i < JSON_SIZE; ++i) {
-       weather_arr[i] = Weather_info(info, i);
+    arr = new Weather_info[WEATHER_ARR_SIZE];
+    for (size_t i = 0; i < WEATHER_ARR_SIZE; ++i) {
+       arr[i] = Weather_info(info, i);
     }
 }
 
-void Parsing::parse_data(Data& data, json& info, size_t pos) {
+void Parsing::parse_data(Datetime& date, json& info, size_t pos) {
         
     std::string str_buf = info["list"][pos]["dt_txt"];
+
     std::cout << str_buf << std::endl;
-    std::string res_buff;
-    std::copy(str_buf.begin(), str_buf.begin() + 4, std::back_inserter(res_buff));
-    data.year = std::atoi(res_buff.c_str());
-    res_buff.clear();
-    std::copy(str_buf.begin() + 5, str_buf.begin() + 7, std::back_inserter(res_buff));
-    data.month = std::atoi(res_buff.c_str());
-    res_buff.clear();
-    std::copy(str_buf.begin() + 8, str_buf.begin() + 10, std::back_inserter(res_buff));
-    data.day = std::atoi(res_buff.c_str());
-    res_buff.clear(); 
-    std::copy(str_buf.begin() + 11, str_buf.begin() + 13, std::back_inserter(res_buff));
-    data.time = std::atoi(res_buff.c_str());
-    res_buff.clear();
+    std::copy(str_buf.begin(), str_buf.begin() + 10, std::back_inserter(date.date));
+   
+    std::copy(str_buf.begin() + 11, str_buf.end(), std::back_inserter(date.time));
+
 }
 
 Weather_t Parsing::parse_weather(json& info, size_t pos) {
@@ -50,4 +42,9 @@ Weather_t Parsing::parse_weather(json& info, size_t pos) {
     }
     return None; //add more variants
 
+}
+
+
+Parsing::~Parsing() {
+    delete[] arr;
 }

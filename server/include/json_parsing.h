@@ -4,9 +4,12 @@
 #include "weather.h"
 using json = nlohmann::json;
 
-namespace Parsing
-{
-void parse_data(Data& data, json& info, size_t pos);
-Weather_info* parse(const std::string& buf);
-Weather_t parse_weather(json& info, size_t pos);
-} // namespace Parsing
+class Parsing {
+public:
+    Weather_info* arr;
+
+    Parsing(const std::string& buf);
+    ~Parsing();
+    static void parse_data(Datetime& date, json& info, size_t pos);
+    static Weather_t parse_weather(json& info, size_t pos);
+};

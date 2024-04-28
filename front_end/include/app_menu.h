@@ -1,4 +1,5 @@
 #pragma once
+
 #include "tools.h"
 using namespace sf;
 
