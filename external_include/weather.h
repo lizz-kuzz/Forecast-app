@@ -37,6 +37,7 @@ class User_info {
 public: 
     std::string user_name;
     User_city_t city;
+    User_info(std::string user_name, User_city_t city) : user_name(user_name), city(city) {};
 };
 
 

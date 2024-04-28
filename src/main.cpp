@@ -2,18 +2,14 @@
 
 #include <iostream>
 #include <curl/curl.h>
-#include "http_request.h"
-#include "json_parsing.h"
 #include "database.h"
 
-#include "app_window.h"
-#include "app_menu.h"
 #include "app_getinfo.h"
-#include "weather.h"
+
 
 // //константы параметров окна
-// const float window_width = 1920;
-// const float window_height = 1080;
+
+const size_t MODE_REGISTRATION = 1;
 
 // //константы файлов фона и шрифта
 
@@ -23,26 +19,48 @@
 // //доступ к функциям sfml
 // using namespace sf; 
 
-
 int main() {
 
+       //==================GET MODE===========================
+
+    size_t user_mode = window_choose_mode();
+
+    std::cout << user_mode << std::endl;
+    
     //==================GET NAME===========================
 
     std::string user_name = window_choose_name();
 
     std::cout << user_name << std::endl;
 
+    //------wait informatin from serwer about city---------
+
     //==================GET CITY===========================
 
-    User_city_t user_city = window_choose_city();
+    User_city_t user_city = DOLOGOPRUDNY; //defolt
 
-    std::cout << user_city << std::endl;
+    if (user_mode == MODE_REGISTRATION)
+    {
+        user_city = window_choose_city();
+
+        std::cout << user_city << std::endl;
+    }
+
+    else // user_mode == MODE_AUTHORIZATION
+    {
+        user_city = DOLOGOPRUDNY; // change, should be get from server
+
+        window_show_city(user_city);
+
+        std::cout << user_city << std::endl;
+    }
 
     //==================SHOW MAIN MENU===========================
 
     User_info new_user(user_name, user_city);
 
     window_main();
+
 
 
     User_info my {"real", MOSCOW};

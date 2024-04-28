@@ -1,9 +1,9 @@
 #pragma once
 
+#include "weather.h"
 #include "tools.h"
 #include "app_window.h"
 #include "app_menu.h"
-#include "weather.h"
 #include <iostream>
 #include <string>
 

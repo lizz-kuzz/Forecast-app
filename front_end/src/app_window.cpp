@@ -2,6 +2,8 @@
 #include "app_window.h"
 using namespace sf;
 
+const float window_width = 1920;
+const float window_height = 1080;
 
 const std::string PATH_FONT = "../front_end/res/font/BlissproMedium.otf";
 const std::string PATH_IMAGE = "../front_end/res/image/goluboj_tsvet_fon_1920x1080.jpg";

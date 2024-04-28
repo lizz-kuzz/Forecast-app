@@ -3,8 +3,15 @@
 //константы параметров окна
 // extern const float window_width;
 // extern const float window_height;
+
 const float window_width = 1920;
 const float window_height = 1080;
+
+// const size_t MAX_NAME_SIZE        = 10;
+const size_t MODE_AUTHORIZATION   = 0;
+const size_t MODE_REGISTRATION    = 1;
+const size_t NEED_CHANGE_CITY     = 0;
+const size_t NO_NEED_CHANGE_CITY  = 1;
 
 //константы файлов фона и шрифта
 const std::string simple_blue_bg    = "../front_end/res/image/goluboj_tsvet_fon_1920x1080.jpg";
@@ -12,6 +19,97 @@ const std::string simple_thick_font = "../front_end/res/font/BlissproMedium.otf"
 
 
 const size_t MAX_NAME_SIZE = 10;
+
+//--------------------------------------------------------------------------------------------------
+
+size_t window_choose_mode()
+{
+    size_t user_mode = 0;
+
+
+    // Создаём окно window 
+    sf::RenderWindow window;
+    create_window(window, window_width, window_height); 
+
+    //------------------------------------------------------------------------------------------------------
+
+    // Устанавливаем фон экрана меню
+    sf::RectangleShape background(Vector2f(window_width, window_height)); //прямоугольник в размер окна
+
+    Texture texture_window;          // (***)
+    if (!texture_window.loadFromFile(simple_blue_bg)) return user_mode;
+    background.setTexture(&texture_window);
+
+    //------------------------------------------------------------------------------------------------------
+
+    // Шрифт для названия экрана 
+    sf::Font font; //объект шрифт // (***)
+    if (!font.loadFromFile(simple_thick_font)) return user_mode;
+
+    // Текст с названием экрана
+    sf::Text titul; //объект заголовок
+    titul.setFont(font);
+
+    TextFormat Ftext;
+    Ftext.size_font = 150;                          //размер шрифта
+    Ftext.menu_text_color = Color(0, 191, 255);     //цвет текста
+    Ftext.bord = 3;                                 //толщина обводки букв
+    Ftext.border_color = Color(255, 255, 255);      //цвет обводки
+    init_text(titul, 400, 50, "Hello! Choose mode", Ftext);     // 7000, 50 - позиция
+
+    //------НАСТРОЙКА МЕНЮ------------------------------------------------------------------------------------------------
+
+    // Название пунктов меню
+    std::vector<std::string> name_menu{ "Authorization","Registration" };
+
+    // Создаем объект меню
+    app::app_menu my_menu(window,150, 350, 100, 120, name_menu); //окно, координаты, размер шрифта, шаг, массив названий
+
+    // Установка цвета отображения меню
+    my_menu.set_color_text_menu(Color::White, Color(175, 238, 238), Color::White); //основной, выделяемый, обводка
+    my_menu.align_menu(0);      //выровняем меню левому краю
+
+    //------БЕСКОНЕЧНОЕ ОКНО------------------------------------------------------------------------------------------------
+
+    //окно будет открыто, пока его не закроют клавищей Escape
+    while (window.isOpen())
+    {
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == Event::KeyReleased)
+            {
+                //void process_menu_clicks(sf::Event event, app::app_menu menu)
+                // События выбра пунктов меню
+                if (event.key.code == Keyboard::Up) { my_menu.move_up(); }      // вверх
+                if (event.key.code == Keyboard::Down) { my_menu.move_down(); }  // вниз
+                if (event.key.code == Keyboard::Return)                         // ввод
+                {
+                    // Переходим на выбранный пункт меню
+                    switch (my_menu.get_selected_menu_number())
+                    {
+                    case 0: return MODE_AUTHORIZATION;    break; //Authorization
+                    case 1: return MODE_REGISTRATION;    break; //Registration
+                    default:break;
+                    }
+                }
+
+            }
+            else if (event.type == Event::Closed || event.key.code == Keyboard::Escape) { window.close(); }
+        }
+
+        // Отрисовка всех объектов      
+        window.clear();      
+
+        window.draw(background);
+        window.draw(titul);
+        my_menu.draw();
+
+        window.display();
+    }
+
+    return user_mode;    
+}
 
 std::string window_choose_name()
 {
@@ -449,5 +547,3 @@ int window_main()
 
     return 0;
 }
-
-
