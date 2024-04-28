@@ -1,4 +1,5 @@
 #pragma once
+
 #include "tools.h"
 #include "app_menu.h" //for create_menu
 using namespace sf;

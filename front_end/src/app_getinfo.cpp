@@ -1,12 +1,17 @@
-#include "/home/kate/Рабочий стол/CPP/Forecast-app/front_end/include/app_getinfo.h"
+#include "app_getinfo.h"
 
 //константы параметров окна
-extern const float window_width;
-extern const float window_height;
+// extern const float window_width;
+// extern const float window_height;
+const float window_width = 1920;
+const float window_height = 1080;
 
 //константы файлов фона и шрифта
-extern const std::string simple_blue_bg;
-extern const std::string simple_thick_font;
+const std::string simple_blue_bg    = "../front_end/res/image/goluboj_tsvet_fon_1920x1080.jpg";
+const std::string simple_thick_font = "../front_end/res/font/BlissproMedium.otf";
+
+
+const size_t MAX_NAME_SIZE = 10;
 
 std::string window_choose_name()
 {

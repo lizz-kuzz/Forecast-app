@@ -1,10 +1,13 @@
-#include "/home/kate/Рабочий стол/CPP/Forecast-app/front_end/include/tools.h"
-#include "/home/kate/Рабочий стол/CPP/Forecast-app/front_end/include/app_window.h"
+#include "tools.h"
+#include "app_window.h"
 using namespace sf;
 
 //константы параметров окна
 const float window_width = 1920;
 const float window_height = 1080;
+
+const std::string PATH_FONT = "../front_end/res/font/BlissproMedium.otf";
+const std::string PATH_IMAGE = "../front_end/res/image/goluboj_tsvet_fon_1920x1080.jpg";
 
 //------------------------------------------------------------------------------------------------------
 
@@ -71,12 +74,12 @@ void weath_today()
     sf::RectangleShape nday_background(Vector2f(window_width, window_height)); //прямоугольник в размер окна
 
     Texture texture_window;          // (***)
-    if (!texture_window.loadFromFile("res/image/goluboj_tsvet_fon_1920x1080.jpg")) exit(3); //const str
+    if (!texture_window.loadFromFile(PATH_IMAGE)) exit(3); //const str
     nday_background.setTexture(&texture_window);
 
     // Шрифт для названия экрана
     Font font;
-    if (!font.loadFromFile("res/font/BlissproMedium.otf")) exit(4);
+    if (!font.loadFromFile(PATH_FONT)) exit(4);
 
     // Текст с названием экрана
     Text titul;
@@ -117,12 +120,12 @@ void weath_tomorrow()
     sf::RectangleShape nday_background(Vector2f(window_width, window_height)); //прямоугольник в размер окна
 
     Texture texture_window;          // (***)
-    if (!texture_window.loadFromFile("res/image/goluboj_tsvet_fon_1920x1080.jpg")) exit(3);
+    if (!texture_window.loadFromFile(PATH_IMAGE)) exit(3);
     nday_background.setTexture(&texture_window);
 
     // Шрифт для названия экрана
     Font font;
-    if (!font.loadFromFile("res/font/BlissproMedium.otf")) exit(4);
+    if (!font.loadFromFile(PATH_FONT)) exit(4);
 
     // Текст с названием экрана
     Text titul;
@@ -163,13 +166,13 @@ void weath_3days()
     sf::RectangleShape nday_background(Vector2f(window_width, window_height)); //прямоугольник в размер окна
 
     Texture texture_window;          // (***)
-    if (!texture_window.loadFromFile("res/image/goluboj_tsvet_fon_1920x1080.jpg")) exit(3);
+    if (!texture_window.loadFromFile(PATH_IMAGE)) exit(3);
     nday_background.setTexture(&texture_window);
 
 
     // Шрифт для названия экрана
     Font font;
-    if (!font.loadFromFile("res/font/BlissproMedium.otf")) exit(4);
+    if (!font.loadFromFile(PATH_FONT)) exit(4);
 
     // Текст с названием экрана
     Text titul;
@@ -212,13 +215,13 @@ void weath_10days()
     sf::RectangleShape nday_background(Vector2f(window_width, window_height)); //прямоугольник в размер окна
 
     Texture texture_window;          // (***)
-    if (!texture_window.loadFromFile("res/image/goluboj_tsvet_fon_1920x1080.jpg")) exit(3);
+    if (!texture_window.loadFromFile(PATH_IMAGE)) exit(3);
     nday_background.setTexture(&texture_window);
 
 
     // Шрифт для названия экрана
     Font font;
-    if (!font.loadFromFile("res/font/BlissproMedium.otf")) exit(4);
+    if (!font.loadFromFile(PATH_FONT)) exit(4);
 
     // Текст с названием экрана
     Text titul;

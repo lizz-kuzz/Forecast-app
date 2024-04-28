@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <nlohmann/json.hpp> 
+
 const size_t WEATHER_ARR_SIZE = 39;
 
 struct Datetime {
@@ -22,10 +23,20 @@ enum Weather_t {
     None,
 };
 
+
+enum User_city_t {  //LAT       LON
+	MOSCOW,			//55.755800 37.617200
+	STPETESBURG,	//59.937500 30.308600		
+	NOVOSIBIRSK,	//55.050000 82.950000
+	YEKATERINBURG,  //56.835600 60.612800		
+	DOLOGOPRUDNY,	//37.503434	55.939831
+    ERROR
+};
+
 class User_info {
 public: 
     std::string user_name;
-    int city;
+    User_city_t city;
 };
 
 

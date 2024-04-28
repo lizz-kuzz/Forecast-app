@@ -6,9 +6,46 @@
 #include "json_parsing.h"
 #include "database.h"
 
+#include "app_window.h"
+#include "app_menu.h"
+#include "app_getinfo.h"
+#include "weather.h"
+
+// //константы параметров окна
+// const float window_width = 1920;
+// const float window_height = 1080;
+
+// //константы файлов фона и шрифта
+
+// //константы для имени пользователя
+
+
+// //доступ к функциям sfml
+// using namespace sf; 
+
+
 int main() {
 
-    User_info my {"real", 2};
+    //==================GET NAME===========================
+
+    std::string user_name = window_choose_name();
+
+    std::cout << user_name << std::endl;
+
+    //==================GET CITY===========================
+
+    User_city_t user_city = window_choose_city();
+
+    std::cout << user_city << std::endl;
+
+    //==================SHOW MAIN MENU===========================
+
+    User_info new_user(user_name, user_city);
+
+    window_main();
+
+
+    User_info my {"real", MOSCOW};
     Database db;
     // db.add_info_user(my);
     // db.update_info_user(my);
