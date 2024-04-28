@@ -15,8 +15,16 @@ extern const std::string simple_thick_font;
 
 //константы для имени пользователя
 extern const size_t MAX_NAME_SIZE;
+extern const size_t MODE_AUTHORIZATION;
+extern const size_t MODE_REGISTRATION;
+extern const size_t NEED_CHANGE_CITY;
+extern const size_t NO_NEED_CHANGE_CITY;
 
 //--------------------------------------------------------------------------------------------------
+
+size_t      window_choose_mode();
 std::string window_choose_name();
-int         window_main();
 User_city_t window_choose_city();
+size_t      window_show_city(User_city_t user_city);
+
+int         window_main();

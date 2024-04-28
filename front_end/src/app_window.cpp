@@ -2,9 +2,6 @@
 #include "/home/kate/Рабочий стол/CPP/Forecast-app/front_end/include/app_window.h"
 using namespace sf;
 
-//константы параметров окна
-const float window_width = 1920;
-const float window_height = 1080;
 
 //------------------------------------------------------------------------------------------------------
 
