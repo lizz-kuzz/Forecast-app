@@ -40,7 +40,7 @@ void Database::update_info_user(const User_info& client) {
     add_info_user(client);
 }
 
-void Database::give_info_user(const User_info& client, Weather_info *arr) {
+void Database::give_info_user(const User_info& client, Weather_info* arr) {
      
     std::string sql_request{"select * from weather "
                             "where user_name = '" + client.user_name + "' and " 

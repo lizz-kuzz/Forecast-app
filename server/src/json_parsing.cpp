@@ -44,7 +44,6 @@ Weather_t Parsing::parse_weather(json& info, size_t pos) {
 
 }
 
-
 Parsing::~Parsing() {
     delete[] arr;
 }

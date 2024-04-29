@@ -10,7 +10,23 @@ struct Datetime {
     std::string date;
 
     ~Datetime() {};
+    // Datetime operator=(const Datetime lr) {
+    //     Datetime tmp{lr.date, lr.time};
+    //     return tmp;
+    // }; 
 };
+
+// BigInt& BigInt::operator=(BigInt bi) {
+//     swap(bi);
+//     return *this;
+// }
+
+// void BigInt::swap(BigInt& bi) {
+//     std::swap(digits, bi.digits);
+//     std::swap(sign, bi.sign);
+//     std::swap(length, bi.length);
+//     std::swap(capacity, bi.capacity);
+// }
 
 enum Weather_t {
     Clear_sky,

@@ -12,6 +12,7 @@ find_package(CURL REQUIRED)
 add_executable(
   weather_app
   src/main.cpp
+  src/multi_threads.cpp
   server/src/http_request.cpp
   server/src/json_parsing.cpp
   server/src/weather.cpp

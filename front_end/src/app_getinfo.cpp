@@ -193,7 +193,7 @@ std::string window_choose_name()
                             playerInput += event.text.unicode;
                             playerText.setString(playerInput);
                             name_size++;
-                            std::cout << playerInput.toAnsiString() << std::endl;
+                            //std::cout << playerInput.toAnsiString() << std::endl;
                         }
                 }
                 else if (event.type == Event::Closed || event.key.code == Keyboard::Escape) 
