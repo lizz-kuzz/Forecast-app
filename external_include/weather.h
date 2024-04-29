@@ -16,17 +16,6 @@ struct Datetime {
     // }; 
 };
 
-// BigInt& BigInt::operator=(BigInt bi) {
-//     swap(bi);
-//     return *this;
-// }
-
-// void BigInt::swap(BigInt& bi) {
-//     std::swap(digits, bi.digits);
-//     std::swap(sign, bi.sign);
-//     std::swap(length, bi.length);
-//     std::swap(capacity, bi.capacity);
-// }
 
 enum Weather_t {
     Clear_sky,

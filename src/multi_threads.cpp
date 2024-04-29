@@ -1,4 +1,4 @@
-#include "threads.h"
+#include "multi_threads.h"
 #include <iostream>
 
 #include <curl/curl.h>
@@ -6,8 +6,33 @@
 
 #include "app_getinfo.h"
 
+//====================CONSTANTS=================================
+//enum !!!!!!!!!!!!
+const size_t MODE_AUTHORIZATION   = 0;
+const size_t MODE_REGISTRATION    = 1;
 
-const size_t MODE_REGISTRATION = 1;
+size_t user_mode;                     //MAKE GLOBAL NAME
+std::string user_name;
+User_city_t user_city = DOLOGOPRUDNY; //defolt
+//TODO:weather info create vecto
+
+//=====================MULTI THREAD MUTEX=======================
+
+std::mutex  thr_mutex;
+
+//=====================REQUESTS TO SERVER=======================
+//-->1 name alreday exist; 
+//-->0 opposit;
+size_t regs_user_check_by_name(){return 0;};
+
+//-->1 name not exist; 
+//-->0 opposit;
+size_t auth_user_check_by_name(){return 0;};
+
+void regs_get_info(){};
+void auth_get_info(){};
+
+//==============================================================
 
 
 void client_thread_funk(void)
@@ -16,43 +41,82 @@ void client_thread_funk(void)
 
     //==================GET MODE===========================
 
-    size_t user_mode = window_choose_mode();
+    thr_mutex.lock();
+    user_mode = window_choose_mode();
+    thr_mutex.unlock();
 
-    std::cout << user_mode << std::endl;
+    std::cout << "user mode:" << user_mode << std::endl;
     
     //==================GET NAME===========================
 
-    std::string user_name = window_choose_name();
+    //user_name = window_choose_name();
 
-    std::cout << user_name << std::endl;
+    //std::cout << "user name:" << user_name << std::endl;
 
     //------wait informatin from serwer about city---------
+    //user_check_by_name(); ///////ADD////////
 
     //==================GET CITY===========================
 
-    User_city_t user_city = DOLOGOPRUDNY; //defolt
-
     if (user_mode == MODE_REGISTRATION)
     {
-        user_city = window_choose_city();
+        thr_mutex.lock();
+        user_name = window_choose_name();
+        thr_mutex.unlock();
 
-        std::cout << user_city << std::endl;
+        std::cout << "user name:" << user_name << std::endl;
+
+        while(regs_user_check_by_name()) ///////ADD//////// --->server-->yes/no
+        {
+            //-->1 name alreday exist;
+            thr_mutex.lock(); 
+            user_name = window_choose_name();
+            thr_mutex.unlock();
+        }
+
+        thr_mutex.lock();
+        user_city = window_choose_city();
+        thr_mutex.unlock();
+
+        regs_get_info(); //--> *weather
     }
 
     else // user_mode == MODE_AUTHORIZATION
     {
-        user_city = DOLOGOPRUDNY; // change, should be get from server
+        thr_mutex.lock();
+        user_name = window_choose_name();
+        thr_mutex.unlock();
 
+        std::cout << "user name:" << user_name << std::endl;
+
+        while(auth_user_check_by_name()) ///////ADD//////// --->server-->yes/no
+        {
+        //-->1 name not exist; 
+        thr_mutex.lock();
+        user_name = window_choose_name();
+        thr_mutex.unlock();
+        }
+        
+        
+        auth_get_info();//--> *city
+                        //--> *weather
+
+        user_city = DOLOGOPRUDNY; // change, should be get from server ---> in auth_get_info()
+        thr_mutex.lock();
         window_show_city(user_city);
-
-        std::cout << user_city << std::endl;
+        thr_mutex.unlock();
     }
+
+
+    std::cout << "user city:" << user_city << std::endl;
 
     //==================SHOW MAIN MENU===========================
 
-    User_info new_user(user_name, user_city);
+    User_info new_user(user_name, user_city); //add weather
 
+    thr_mutex.lock();
     window_main();
+    thr_mutex.unlock();
 
 }
 
