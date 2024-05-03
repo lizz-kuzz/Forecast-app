@@ -116,7 +116,13 @@ void client_thread_funk(void)
     User_info new_user(user.name, user.city); //add weather
 
     thr_mutex.lock();
-    window_main();
+    Database db;
+    User_info my {"real", MOSCOW};
+
+    db.give_avg_info_user(my, arr);
+
+    
+    window_main(arr);
     thr_mutex.unlock();
 
 }
@@ -126,7 +132,20 @@ void server_thread_funk(void)
 
 
     std::cout << "Thread 2 executing\n";
+ // std::cout << "Thread 2 executing\n";
 
+    // User_info my {"real", MOSCOW};
+    // Database db;
+    // // db.add_info_user(my);
+    // db.update_info_user(my);
+    // // db.is_info_exist(my);
+    // std::vector<Weather_info> arr;
+    // db.give_avg_info_user(my, arr);
+
+    // for (auto elem : arr) {
+    //     std::cout << elem.date.date << " " << elem.pressure << " " << std::endl;
+    // }
+    // std::cout << "OK" << std::endl;
     User_info my {"real", MOSCOW};
     Database db;
     // db.add_info_user(my);

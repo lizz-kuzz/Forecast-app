@@ -1,6 +1,7 @@
 #include "tools.h"
 #include "app_window.h"
 #include "weather.h"
+#include <format>
 using namespace sf;
 
 const float window_width = 1920;
@@ -8,9 +9,6 @@ const float window_height = 1080;
 
 const std::string PATH_FONT = "../front_end/res/font/BlissproMedium.otf";
 const std::string PATH_IMAGE = "../front_end/res/image/goluboj_tsvet_fon_1920x1080.jpg";
-
-std::vector<Weather_info> weather_info_vector;
-
 
 
 
@@ -70,7 +68,7 @@ void init_text(Text& mtext, float xpos, float ypos, const std::string& str, Text
 }
 
 // окно погоды на сегодня
-void weath_today()
+void weath_today(const std::vector<Weather_info>& arr)
 {
     // Создаём окно nday_window
     sf::RenderWindow nday_window(VideoMode(window_width, window_height), "today", sf::Style::Default);
@@ -96,6 +94,22 @@ void weath_today()
     Ftext.bord = 3;
     init_text(titul, 500, 50, "Weather for today", Ftext);
 
+    // Текст с погодой
+    Text weather;
+    weather.setFont(font);
+
+    TextFormat Ftext_w;
+    Ftext_w.size_font = 50;
+    Ftext_w.menu_text_color = Color(175, 238, 238);
+    Ftext_w.bord = 3;
+    init_text(weather, 100, 200, "", Ftext_w);
+    std::string info1 = " data : " + arr[0].date.date + " \n tempr : " + std::to_string(std::format("{:.1f}", arr[0].temp)) + " \n feels like : " + std::to_string( static_cast <int>(arr[0].temp_feels_like) ) + " \n pressure : " + std::to_string(arr[0].pressure) + " \n wind : " + std::to_string(arr[0].wind) + "";
+    weather.setLetterSpacing(2);
+    weather.setOutlineColor(Color(62,95,138));
+    weather.setString(info1);
+
+    //--------------------------------------------------------------------------
+
     while (nday_window.isOpen())
     {
         Event nday_event;
@@ -111,12 +125,13 @@ void weath_today()
         nday_window.clear();
         nday_window.draw(nday_background);
         nday_window.draw(titul);
+        nday_window.draw(weather);
         nday_window.display();
     }
 }
 
 // окно погоды на завтра
-void weath_tomorrow()
+void weath_tomorrow(const std::vector<Weather_info>& arr)
 {
     // Создаём окно nday_window
     sf::RenderWindow nday_window(VideoMode(window_width, window_height), "tomorrow", sf::Style::Default);
@@ -162,7 +177,7 @@ void weath_tomorrow()
 }
 
 // окно погоды на 3 дня
-void weath_3days()
+void weath_3days(const std::vector<Weather_info>& arr)
 {
     // Создаём окно nday_window
     sf::RenderWindow nday_window(VideoMode(window_width, window_height), "3days", sf::Style::Default);
@@ -211,7 +226,7 @@ void weath_3days()
 
 
 // окно погоды на 10 дней
-void weath_10days()
+void weath_10days(const std::vector<Weather_info>& arr)
 {
     // Создаём окно nday_window
     sf::RenderWindow nday_window(VideoMode(window_width, window_height), "10days", sf::Style::Default);
@@ -236,7 +251,7 @@ void weath_10days()
     Ftext.size_font = 120;
     Ftext.menu_text_color = Color::White;
     Ftext.bord = 3;
-    init_text(titul, 500, 50, "Weather for 10 days", Ftext);
+    init_text(titul, 500, 50, "Weather for 6 days", Ftext);
 
     while (nday_window.isOpen())
     {

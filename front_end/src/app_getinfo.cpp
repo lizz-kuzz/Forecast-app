@@ -442,7 +442,7 @@ size_t window_show_city( User_city_t user_city )
     return change_city;   
 }
 
-int window_main()
+int window_main(const std::vector<Weather_info>& arr)
 {
     //===============================================================================================
     //===============================================================================================
@@ -523,10 +523,10 @@ int window_main()
                     // Переходим на выбранный пункт меню
                     switch (my_menu.get_selected_menu_number())
                     {
-                    case 0:weath_today();    break;
-                    case 1:weath_tomorrow(); break;
-                    case 2:weath_3days();    break;
-                    case 3:weath_10days();   break;
+                    case 0:weath_today(arr);    break;
+                    case 1:weath_tomorrow(arr); break;
+                    case 2:weath_3days(arr);    break;
+                    case 3:weath_10days(arr);   break;
                     default:break;
                     }
                 }

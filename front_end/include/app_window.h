@@ -2,6 +2,7 @@
 
 #include "tools.h"
 #include "app_menu.h" //for create_menu
+#include "weather.h"
 using namespace sf;
 
 struct TextFormat
@@ -38,7 +39,7 @@ void process_menu_clicks(sf::Event event, app::app_menu menu);
 void init_text(Text& mtext, float xpos, float ypos, const std::string& str, TextFormat Ftext);
 
 //функции вывода информации о погоде на n дней
-void weath_today();   
-void weath_tomorrow();
-void weath_3days();
-void weath_10days();
+void weath_today(const std::vector<Weather_info>& arr);   
+void weath_tomorrow(const std::vector<Weather_info>& arr);
+void weath_3days(const std::vector<Weather_info>& arr);
+void weath_10days(const std::vector<Weather_info>& arr);
