@@ -3,12 +3,12 @@ project(weather_app)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_FLAGS "-Wall -Wextra")
+set(CMAKE_CXX_FLAGS "-Wall -Wextra -g")
 
 set(CURL_LIBRARY "-lcurl")
 set(PQXX_LIBRARY "-lpqxx")
 find_package(CURL REQUIRED)
-# find_package(lpqxx REQUIRED)
+
 add_executable(
   weather_app
   src/main.cpp

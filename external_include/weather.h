@@ -53,15 +53,19 @@ public:
 
 class Weather_info {
 public:
-    double temp;
-    double temp_feels_like;
-    double pressure;
-    double wind;
-    Weather_t type;
+    double temp = 0;
+    double temp_feels_like = 0;
+    double pressure = 0;
+    double wind = 0;
+    Weather_t type = None;
     Datetime date;
+    User_city_t city = DEFAULT; //TODO: change type
     // std::string user_name;
-    int city; //TODO: change type
     Weather_info() = default;
+    // Weather_info() : temp(0), temp_feels_like(0), pressure(0), 
+                    //  wind(0), type(None) {
+                        // date()
+                    //  };
     ~Weather_info() {};
     //constructer from data_base
 

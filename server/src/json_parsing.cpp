@@ -4,9 +4,9 @@ Parsing::Parsing(const std::string& buf) {
     json info;
 
     info = json::parse(buf);
-    arr = new Weather_info[WEATHER_ARR_SIZE];
+    // arr = new Weather_info[WEATHER_ARR_SIZE];
     for (size_t i = 0; i < WEATHER_ARR_SIZE; ++i) {
-       arr[i] = Weather_info(info, i);
+       arr.push_back(Weather_info(info, i));
     }
 }
 
@@ -45,5 +45,5 @@ Weather_t Parsing::parse_weather(json& info, size_t pos) {
 }
 
 Parsing::~Parsing() {
-    delete[] arr;
+    // delete[] arr;
 }

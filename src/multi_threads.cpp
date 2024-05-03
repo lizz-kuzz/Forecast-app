@@ -123,12 +123,12 @@ void server_thread_funk(void)
 
     User_info my {"real", MOSCOW};
     Database db;
-    db.add_info_user(my);
-    // db.update_info_user(my);
+    // db.add_info_user(my);
+    db.update_info_user(my);
     // db.is_info_exist(my);
-    // Weather_info* arr = new Weather_info[WEATHER_ARR_SIZE];
-    // db.give_info_user(my, arr);
-    // std::cout << "OK" << std::endl;
+    std::vector<Weather_info> arr;
+    db.give_info_user(my, arr);
+    std::cout << "OK" << std::endl;
 
 
     // for (size_t i = 0; i < WEATHER_ARR_SIZE; ++i) {

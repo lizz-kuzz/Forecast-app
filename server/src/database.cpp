@@ -40,7 +40,7 @@ void Database::update_info_user(const User_info& client) {
     add_info_user(client);
 }
 
-void Database::give_info_user(const User_info& client, Weather_info* arr) {
+void Database::give_info_user(const User_info& client, std::vector<Weather_info> arr) {
      
     std::string sql_request{"select * from weather "
                             "where user_name = '" + client.user_name + "' and " 
@@ -49,15 +49,17 @@ void Database::give_info_user(const User_info& client, Weather_info* arr) {
     pqxx::result res_request{request.exec(sql_request.c_str())};   
     
     for (size_t i = 0; auto row : res_request) {
-        arr[i].city = row[1].as<int>();
-        arr[i].date.date = row[2].as<std::string>();
-        arr[i].date.time = row[3].as<std::string>();
-        arr[i].temp = row[4].as<float>();
-        arr[i].temp_feels_like = row[5].as<float>();
-        arr[i].pressure = row[6].as<float>();
-        arr[i].wind = row[7].as<float>();
-        arr[i].type = static_cast<Weather_t>(row[8].as<int>());
+        Weather_info elem;
+        elem.city = static_cast<User_city_t>(row[1].as<int>());
+        elem.date.date = row[2].as<std::string>();
+        elem.date.time = row[3].as<std::string>();
+        elem.temp = row[4].as<float>();
+        elem.temp_feels_like = row[5].as<float>();
+        elem.pressure = row[6].as<float>();
+        elem.wind = row[7].as<float>();
+        elem.type = static_cast<Weather_t>(row[8].as<int>());
         ++i;
+        arr.push_back(elem);
     }
 
 }

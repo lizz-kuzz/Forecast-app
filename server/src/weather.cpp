@@ -9,6 +9,6 @@ Weather_info::Weather_info(nlohmann::json info, size_t pos) :
 {
     Parsing::parse_data(date, info, pos);
     type = Parsing::parse_weather(info, pos);
-    city = 1;
+    city = DEFAULT;
     // user_name = "atar";
 }
