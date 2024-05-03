@@ -35,7 +35,12 @@ enum User_city_t {  //LAT       LON
 	NOVOSIBIRSK,	//55.050000 82.950000
 	YEKATERINBURG,  //56.835600 60.612800		
 	DOLOGOPRUDNY,	//37.503434	55.939831
-    ERROR
+    DEFAULT
+};
+
+enum User_mode_t {  //LAT       LON
+    MODE_AUTHORIZATION,
+    MODE_REGISTRATION
 };
 
 class User_info {

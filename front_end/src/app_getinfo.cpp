@@ -1,4 +1,5 @@
 #include "app_getinfo.h"
+#include "weather.h"
 
 //константы параметров окна
 // extern const float window_width;
@@ -8,8 +9,7 @@ const float window_width = 1920;
 const float window_height = 1080;
 
 // const size_t MAX_NAME_SIZE        = 10;
-const size_t MODE_AUTHORIZATION   = 0;
-const size_t MODE_REGISTRATION    = 1;
+
 const size_t NEED_CHANGE_CITY     = 0;
 const size_t NO_NEED_CHANGE_CITY  = 1;
 
@@ -22,9 +22,9 @@ const size_t MAX_NAME_SIZE = 10;
 
 //--------------------------------------------------------------------------------------------------
 
-size_t window_choose_mode()
+User_mode_t window_choose_mode()
 {
-    size_t user_mode = 0;
+    User_mode_t user_mode = MODE_AUTHORIZATION;
 
 
     // Создаём окно window 
@@ -222,7 +222,7 @@ std::string window_choose_name()
 
 User_city_t window_choose_city()
 {
-    User_city_t user_city = ERROR;
+    User_city_t user_city = DEFAULT;
 
 
     // Создаём окно window 

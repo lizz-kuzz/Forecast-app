@@ -6,12 +6,9 @@
 
 #include "app_getinfo.h"
 
-//====================CONSTANTS=================================
-//enum !!!!!!!!!!!!
-const size_t MODE_AUTHORIZATION   = 0;
-const size_t MODE_REGISTRATION    = 1;
+//====================CONSTANTS================================
+User_mode_t user_mode; 
 
-size_t user_mode;                     //MAKE GLOBAL NAME
 std::string user_name;
 User_city_t user_city = DOLOGOPRUDNY; //defolt
 //TODO:weather info create vecto

@@ -20,7 +20,7 @@
 
 //--------------------------------------------------------------------------------------------------
 
-size_t      window_choose_mode();
+User_mode_t window_choose_mode();
 std::string window_choose_name();
 User_city_t window_choose_city();
 size_t      window_show_city(User_city_t user_city);
