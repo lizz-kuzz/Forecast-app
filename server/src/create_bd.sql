@@ -35,3 +35,15 @@ where user_name = 'liza' and
       city = 1;
 
 
+select  weather.city, 
+        weather.user_name,
+        weather.data_, 
+        avg(temp), 
+        avg(temp_feels_like), 
+        avg(pressure),
+        avg(wind)
+from weather where weather.city = 0 and weather.user_name = 'real' 
+group by weather.data_, 
+        weather.city, 
+        weather.user_name 
+order by weather.data_;
