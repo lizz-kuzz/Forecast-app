@@ -6,13 +6,11 @@ Database::~Database() {
 
 }
 
-// Weather_info Database::request_by_name(User_info client) {
-
-// }
-
 void Database::add_info_user(const User_info& client) {
     HTTP::Request weather;
-    weather.get_buffer_from_api(); //TODO: add here coord diffrent countries + bd
+    City_coord coord;
+    give_city_coord(coord, client);
+    weather.get_buffer_from_api(coord.lat, coord.lon); //TODO: add here coord diffrent countries + bd
 
     Parsing city_weather(weather.buffer);
 
@@ -65,7 +63,7 @@ void Database::give_all_info_user(const User_info& client, std::vector<Weather_i
 }
 
 void Database::give_avg_info_user(const User_info& client, std::vector<Weather_info>& arr) {
-     
+    update_info_user(client);
     std::string sql_request{"select  weather.city, "
                                     "weather.user_name,"
                                     "weather.data_," 
@@ -73,8 +71,9 @@ void Database::give_avg_info_user(const User_info& client, std::vector<Weather_i
                                     "avg(temp_feels_like),"
                                     "avg(pressure),"
                                     "avg(wind)"
-                                    "from weather where weather.city = " + std::to_string(client.city) + "and weather.user_name = '" +
-                                    client.name + "' group by weather.data_, "
+                                    "from weather where weather.city = " + std::to_string(client.city) + 
+                                    "and weather.user_name = '" + client.name + 
+                                    "' group by weather.data_, "
                                     "weather.city, weather.user_name " 
                                     "order by weather.data_;" };
 
@@ -124,4 +123,14 @@ User_city_t Database::give_city_by_name(const User_info& client) {
     pqxx::result res_request{request.exec(sql_request.c_str())};  
 
     return static_cast<User_city_t>(res_request.front()[0].as<int>());
+}
+
+void Database::give_city_coord(City_coord& city, const User_info& client) {
+    std::string sql_request{"select * from city_coord "
+                            "where city = " + std::to_string(client.city) + ";"};
+
+    pqxx::result res_request{request.exec(sql_request.c_str())};   
+    city.lat = res_request.front()[1].as<float>();
+    city.lat = res_request.front()[2].as<float>();
+
 }

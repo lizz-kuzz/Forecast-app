@@ -3,18 +3,16 @@
 #include <iostream>
 #include <nlohmann/json.hpp> 
 #include <chrono>
-
+#include <thread>
+#include <mutex>
+		
 const size_t WEATHER_ARR_SIZE = 39;
 
 struct Datetime {
     std::string time;
     std::string date;
 
-    ~Datetime() {};
-    // Datetime operator=(const Datetime lr) {
-    //     Datetime tmp{lr.date, lr.time};
-    //     return tmp;
-    // }; 
+    // ~Datetime() {};
 };
 
 
@@ -31,12 +29,12 @@ enum Weather_t {
 
 
 enum User_city_t {  //LAT       LON
-	MOSCOW,			//55.755800 37.617200
+    DEFAULT,
+	MOSCOW,			//55.751244 37.618423
 	STPETESBURG,	//59.937500 30.308600		
 	NOVOSIBIRSK,	//55.050000 82.950000
 	YEKATERINBURG,  //56.835600 60.612800		
-	DOLOGOPRUDNY,	//37.503434	55.939831
-    DEFAULT
+	DOLOGOPRUDNY,	//55.939831 37.503434	
 };
 
 enum User_mode_t {  //LAT       LON
@@ -79,10 +77,15 @@ enum Command_t {
     NONE,
     NAME_EXIST,
     CITY_BY_NAME,
+    CHANGE_CITY,
+    BREAK_THR2,
+    GIVE_INFO,
 };
 
 struct Shared_data {
     bool name_exist;
+    User_info user;
+    std::vector<Weather_info> arr;
 };
 
 struct Shared_cmd {

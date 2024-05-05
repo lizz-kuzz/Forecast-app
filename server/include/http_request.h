@@ -3,8 +3,8 @@
 #include <curl/curl.h>
 #include <nlohmann/json.hpp> 
 
-const double DOLGOPA_LAT = 37.503434;
-const double DOLGOPA_LON = 55.939831;
+const double DOLGOPA_LAT = 55.939831;
+const double DOLGOPA_LON = 37.503434;
 
 namespace HTTP {
 struct Request {

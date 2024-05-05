@@ -47,3 +47,23 @@ group by weather.data_,
         weather.city, 
         weather.user_name 
 order by weather.data_;
+
+
+create table city_coord(
+    city integer, 
+    lat float, 
+    lon float
+);
+
+insert into city_coord(
+    city, 
+    lat, 
+    lon
+) values    (1, 55.751244, 37.618423),
+            (2, 59.937500, 30.308600),
+            (3, 55.050000, 82.950000),
+            (4, 56.835600, 60.612800),
+            (5, 55.939831, 37.503434);
+
+select * from city_coord 
+    where city = 1;

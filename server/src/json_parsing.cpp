@@ -14,7 +14,6 @@ void Parsing::parse_data(Datetime& date, json& info, size_t pos) {
         
     std::string str_buf = info["list"][pos]["dt_txt"];
 
-    std::cout << str_buf << std::endl;
     std::copy(str_buf.begin(), str_buf.begin() + 10, std::back_inserter(date.date));
    
     std::copy(str_buf.begin() + 11, str_buf.end(), std::back_inserter(date.time));

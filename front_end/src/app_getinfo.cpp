@@ -10,8 +10,8 @@ const float window_height = 1080;
 
 // const size_t MAX_NAME_SIZE        = 10;
 
-const size_t NEED_CHANGE_CITY     = 0;
-const size_t NO_NEED_CHANGE_CITY  = 1;
+const bool NEED_CHANGE_CITY     = 1;
+const bool NO_NEED_CHANGE_CITY  = 0;
 
 //константы файлов фона и шрифта
 const std::string simple_blue_bg    = "../front_end/res/image/goluboj_tsvet_fon_1920x1080.jpg";
