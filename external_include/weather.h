@@ -78,6 +78,7 @@ public:
 enum Command_t {
     NONE,
     NAME_EXIST,
+    CITY_BY_NAME,
 };
 
 struct Shared_data {

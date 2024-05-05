@@ -111,7 +111,7 @@ bool Database::is_name_exist(const User_info& client) {
 
     std::string sql_request{"select * from weather "
                             "where weather.user_name = '" + client.name + "';"};
-                            std::cout << sql_request << std::endl;
+                            // std::cout << sql_request << std::endl;
     pqxx::result res_request{request.exec(sql_request.c_str())};   
 
     return !res_request.empty();

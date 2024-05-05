@@ -55,8 +55,7 @@ void client_thread_funk(void)
     //==================GET CITY===========================
 
     if (user_mode == MODE_REGISTRATION) {
-        
-        while (true) {
+        while (true) { //checking exist this name in db or not 
             user.name = window_choose_name();
             user.name.pop_back();
             std::cout << "user name:" << user.name << std::endl;
@@ -73,38 +72,48 @@ void client_thread_funk(void)
             // TODO: ADD FUNC with window this name already exist 
         }
 
-        // thread.mutex.lock();
-        // user.city = window_choose_city();
-        // thread.mutex.unlock();
 
-        // regs_get_info(); //--> *weather
-    }
+        user.city = window_choose_city();
+        // TODO: thihk about it thread.mutex.unlock();
 
-    // else // user_mode == MODE_AUTHORIZATION
-    // {
-    //     thr_mutex.lock();
-    //     user.name = window_choose_name();
-    //     thr_mutex.unlock();
+    } else if (user_mode == MODE_AUTHORIZATION) {
 
-    //     std::cout << "user name:" << user.name << std::endl;
+        while (true) { //checking exist this name in db or not 
+            user.name = window_choose_name();
+            user.name.pop_back();
+            std::cout << "user name:" << user.name << std::endl;
+            thread.cmd = NAME_EXIST;
+            thread.give_cmd = true;
+            thread.mutex.unlock();
 
-    //     while(auth_user_check_by_name()) ///////ADD//////// --->server-->yes/no
-    //     {
-    //     //-->1 name not exist; 
-    //     thr_mutex.lock();
-    //     user.name = window_choose_name();
-    //     thr_mutex.unlock();
-    //     }
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+
+            thread.mutex.lock();
+
+            if (shdata.name_exist == true) break; 
+            
+            // TODO: ADD FUNC with window that this name dont exist 
+        }
+
+        thread.cmd = CITY_BY_NAME;
+        thread.give_cmd = true;
+        thread.mutex.unlock();
+
+        //     user.city = DOLOGOPRUDNY; // change, should be get from server ---> in auth_get_info()
+        //     thr_mutex.lock();
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        thread.mutex.lock();
+        window_show_city(user.city);
+
+
+        //TODO: ADD CHANGE SITY WINDOW
+
+        }
         
         
     //     auth_get_info();//--> *city
     //                     //--> *weather
 
-    //     user.city = DOLOGOPRUDNY; // change, should be get from server ---> in auth_get_info()
-    //     thr_mutex.lock();
-    //     window_show_city(user.city);
-    //     thr_mutex.unlock();
-    // }
 
 
     // std::cout << "user city:" << user.city << std::endl;
@@ -142,10 +151,14 @@ void server_thread_funk(void)
             if (thread.cmd == NAME_EXIST) {
                 shdata.name_exist = db.is_name_exist(user);
                 std::cout << user.name << std::endl;
-                std::cout << std::endl << "client " << user.name << " exist: " << shdata.name_exist << std::endl << std::flush;
+                std::cout << std::endl << "client " << user.name << " exist: " << shdata.name_exist << std::endl;
                 thread.cmd = NONE;
-            } 
-        }
+            } else if (thread.cmd == CITY_BY_NAME) {
+                user.city = db.give_city_by_name(user);
+                std::cout << std::endl << "client " << user.name << " city: " << user.city << std::endl;
+            }
+        } 
+        thread.give_cmd = false;
         thread.mutex.unlock();
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
 
