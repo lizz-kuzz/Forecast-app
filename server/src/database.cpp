@@ -130,7 +130,9 @@ void Database::give_city_coord(City_coord& city, const User_info& client) {
                             "where city = " + std::to_string(client.city) + ";"};
 
     pqxx::result res_request{request.exec(sql_request.c_str())};   
+    city.lat = res_request.front()[0].as<float>();
     city.lat = res_request.front()[1].as<float>();
-    city.lat = res_request.front()[2].as<float>();
+
+
 
 }
