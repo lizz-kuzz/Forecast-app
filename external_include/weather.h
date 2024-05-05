@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <nlohmann/json.hpp> 
+#include <chrono>
 
 const size_t WEATHER_ARR_SIZE = 39;
 
@@ -72,4 +73,19 @@ public:
 
     //constructer from json 
     Weather_info(nlohmann::json arr_info, size_t pos);
-};;
+};
+
+enum Command_t {
+    NONE,
+    NAME_EXIST,
+};
+
+struct Shared_data {
+    bool name_exist;
+};
+
+struct Shared_cmd {
+    std::mutex mutex;
+    bool give_cmd;
+    Command_t cmd;
+};

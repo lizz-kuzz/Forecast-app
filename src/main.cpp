@@ -13,7 +13,9 @@
 
 int main() {
 
-   
+    // Database db;
+    // User_info info{"real", DOLOGOPRUDNY};
+    // std::cout << db.is_name_exist(info);
     std::thread client_thr(client_thread_funk);
     std::thread server_thr(server_thread_funk);
 

@@ -1,7 +1,8 @@
 #include "tools.h"
 #include "app_window.h"
 #include "weather.h"
-#include <format>
+// #include <format>
+#include <fmt/core.h>
 using namespace sf;
 
 const float window_width = 1920;
@@ -103,7 +104,11 @@ void weath_today(const std::vector<Weather_info>& arr)
     Ftext_w.menu_text_color = Color(175, 238, 238);
     Ftext_w.bord = 3;
     init_text(weather, 100, 200, "", Ftext_w);
-    std::string info1 = " data : " + arr[0].date.date + " \n tempr : " + std::to_string(std::format("{:.1f}", arr[0].temp)) + " \n feels like : " + std::to_string( static_cast <int>(arr[0].temp_feels_like) ) + " \n pressure : " + std::to_string(arr[0].pressure) + " \n wind : " + std::to_string(arr[0].wind) + "";
+    std::string info1 = " data : " + arr[0].date.date + 
+                        " \n tempr : " + fmt::format("{:.1f}", arr[0].temp) + 
+                        " \n feels like : " + fmt::format("{:.1f}", arr[0].temp_feels_like) + 
+                        " \n pressure : " + fmt::format("{:.1f}", arr[0].pressure) + 
+                        " \n wind : " + fmt::format("{:.1f}", arr[0].wind) + "";
     weather.setLetterSpacing(2);
     weather.setOutlineColor(Color(62,95,138));
     weather.setString(info1);

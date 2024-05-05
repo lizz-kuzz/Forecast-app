@@ -27,6 +27,7 @@ target_link_libraries(weather_app pqxx)
 target_link_libraries(weather_app sfml-system)
 target_link_libraries(weather_app sfml-window)
 target_link_libraries(weather_app sfml-graphics)
+target_link_libraries(weather_app fmt)
 
 target_include_directories(weather_app PUBLIC front_end/include)
 target_include_directories(weather_app PUBLIC server/include)
