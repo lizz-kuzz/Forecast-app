@@ -9,7 +9,7 @@ create table weather(
     temp_feels_like float, 
     pressure float, 
     wind float, 
-    type_ text
+    type_ integer
 );
 
 
@@ -24,7 +24,7 @@ insert into weather(
     wind, 
     type_
 ) values
-    ('kate', 1, '2024-04-26', '3:00:00', 12.2, 12.4, 345, 5.3, 'cloudy');
+    ('kate', 1, '2024-04-26', '3:00:00', 12.2, 12.4, 345, 5.3, 1);
 
 delete from weather
 where user_name = 'liza' and
@@ -41,12 +41,14 @@ select  weather.city,
         avg(temp), 
         avg(temp_feels_like), 
         avg(pressure),
-        avg(wind)
-from weather where weather.city = 0 and weather.user_name = 'real' 
+        avg(wind), 
+        avg(type_)
+from weather where weather.city = 4 and weather.user_name = 'kate' 
 group by weather.data_, 
         weather.city, 
-        weather.user_name 
+        weather.user_name, 
 order by weather.data_;
+
 
 
 create table city_coord(
@@ -67,3 +69,5 @@ insert into city_coord(
 
 select * from city_coord 
     where city = 1;
+
+

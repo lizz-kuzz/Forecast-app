@@ -18,12 +18,8 @@ struct Datetime {
 
 enum Weather_t {
     Clear_sky,
-    Few_clouds, 
-    Scattered_clouds, 
-    Overcast_clouds,
-    Light_rain, 
-    Moderate_rain, 
-    Broken_clouds,
+    Clouds, 
+    Rain, 
     None,
 };
 

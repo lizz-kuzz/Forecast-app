@@ -6,7 +6,6 @@ using json = nlohmann::json;
 
 class Parsing {
 public:
-    // Weather_info* arr;
     std::vector<Weather_info> arr;
     Parsing(const std::string& buf);
     ~Parsing();

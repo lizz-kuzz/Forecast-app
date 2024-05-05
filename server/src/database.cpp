@@ -22,7 +22,8 @@ void Database::add_info_user(const User_info& client) {
                             "('" + client.name + "', " + std::to_string(client.city) + 
                             ", '" + city_weather.arr[i].date.date + "', '" + city_weather.arr[i].date.time + 
                             "', " + std::to_string(city_weather.arr[i].temp) + ", " + std::to_string(city_weather.arr[i].temp_feels_like) + 
-                            ", " +std::to_string(city_weather.arr[i].pressure) + ", " + std::to_string(city_weather.arr[i].wind) + ", '" + std::to_string(city_weather.arr[i].type) + "');"};
+                            ", " +std::to_string(city_weather.arr[i].pressure) + ", " + std::to_string(city_weather.arr[i].wind) + ", " 
+                            + std::to_string(city_weather.arr[i].type) + ");"};
         pqxx::result res_request{request.exec(sql_request.c_str())};   
         
     }
@@ -70,7 +71,8 @@ void Database::give_avg_info_user(const User_info& client, std::vector<Weather_i
                                     "avg(temp),"
                                     "avg(temp_feels_like),"
                                     "avg(pressure),"
-                                    "avg(wind)"
+                                    "avg(wind), "
+                                    "avg(type_)"
                                     "from weather where weather.city = " + std::to_string(client.city) + 
                                     "and weather.user_name = '" + client.name + 
                                     "' group by weather.data_, "
@@ -79,17 +81,21 @@ void Database::give_avg_info_user(const User_info& client, std::vector<Weather_i
 
     pqxx::result res_request{request.exec(sql_request.c_str())};   
     
-    for (size_t i = 0; auto row : res_request) {
+    for (auto row : res_request) {
         Weather_info elem;
         elem.city = client.city;
         elem.date.date = row[2].as<std::string>();
-        // elem.date.time = row[3].as<std::string>();
         elem.temp = row[3].as<float>();
         elem.temp_feels_like = row[4].as<float>();
         elem.pressure = row[5].as<float>();
         elem.wind = row[6].as<float>();
-        // elem.type = static_cast<Weather_t>(row[8].as<int>());
-        ++i;
+        float type_elem = row[7].as<float>();
+        if (type_elem >= (static_cast<int>(type_elem) + 0.5)) {
+            elem.type = static_cast<Weather_t>(static_cast<int>(type_elem) + 1);
+        } else {
+            elem.type = static_cast<Weather_t>(static_cast<int>(type_elem));
+        }
+
         arr.push_back(elem);
     }
 

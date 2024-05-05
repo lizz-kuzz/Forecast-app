@@ -17,8 +17,6 @@ void HTTP::Request::get_buffer_from_api(double lat, double lon) {
     CURLcode res;
     std::string api_request = "api.openweathermap.org/data/2.5/forecast?lat=" + std::to_string(lat) + "&lon=" + std::to_string(lon)
                               + "&exclude=daily&current.temp=Celsius&units=metric&appid=464a485473994b656c2f1419b57a028a";
-    // "api.openweathermap.org/data/2.5/forecast?lat=55.939831&lon=37.503434&exclude=daily&current.temp=Celsius&units=metric&appid=464a485473994b656c2f1419b57a028a";
-    std::cout << api_request << std::endl;
     curl = curl_easy_init();
 
     if (curl) {
