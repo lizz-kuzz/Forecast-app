@@ -24,6 +24,10 @@ const std::string PATH_IMAGE_3 =
     "../front_end/res/image/IMG_2452.JPG";
 const std::string PATH_IMAGE_4 =
     "../front_end/res/image/IMG_20240506_150214_141.jpg";
+const std::string PATH_IMAGE_5 =
+    "../front_end/res/image/IMG_2442.jpg";
+const std::string PATH_IMAGE_6 =
+    "../front_end/res/image/IMG_20240506_214059_844.jpg";
 
 const size_t MAX_NAME_SIZE = 25;
 
@@ -528,7 +532,7 @@ int window_main(const std::vector<Weather_info>& arr) {
         Vector2f(window_width, window_height));  //прямоугольник в размер окна
 
     Texture texture_window;  // (***)
-    if (!texture_window.loadFromFile(simple_blue_bg)) return 1;
+    if (!texture_window.loadFromFile(PATH_IMAGE_5)) return 1;
     background.setTexture(&texture_window);
 
     //------------------------------------------------------------------------------------------------------
@@ -537,18 +541,18 @@ int window_main(const std::vector<Weather_info>& arr) {
 
     // Шрифт для названия экрана
     sf::Font font;  //объект шрифт // (***)
-    if (!font.loadFromFile(simple_thick_font)) return 2;
+    if (!font.loadFromFile(PATH_FONT_1)) return 2;
 
     // Текст с названием экрана
     sf::Text titul;  //объект заголовок
     titul.setFont(font);
 
     TextFormat Ftext;
-    Ftext.size_font = 150;                      //размер шрифта
-    Ftext.menu_text_color = Color(0, 191, 255); //цвет текста
-    Ftext.bord = 3;                             //толщина обводки букв
-    Ftext.border_color = Color(255, 255, 255);  //цвет обводки
-    init_text(titul, 700, 50, "weather", Ftext);  // 7000, 50 - позиция
+    Ftext.size_font = 250;                      //размер шрифта
+    Ftext.menu_text_color = Color(76, 93, 182);     //цвет текста
+    Ftext.bord = 3;                                 //толщина обводки букв
+    Ftext.border_color = Color(220, 224, 244);      //цвет обводки
+    init_text(titul, 560, 100, "Weather", Ftext);  // 7000, 50 - позиция
 
     //------НАСТРОЙКА
     //МЕНЮ------------------------------------------------------------------------------------------------
@@ -560,13 +564,13 @@ int window_main(const std::vector<Weather_info>& arr) {
 
     // Создаем объект меню
     App::Menu my_menu(
-        start_window, 150, 350, 100, 120,
-        name_menu, 1);  //окно, координаты, размер шрифта, шаг, массив названий
+        start_window, 950, 400, 140, 120,
+        name_menu, 2);  //окно, координаты, размер шрифта, шаг, массив названий
 
     // Установка цвета отображения меню
-    my_menu.set_color_text_menu(Color::White, Color(175, 238, 238),
-                                Color::White);  //основной, выделяемый, обводка
-    my_menu.align_menu(0);  //выровняем меню левому краю
+    my_menu.set_color_text_menu(Color(220, 224, 244), Color(119, 132, 204),
+                                Color(220, 224, 244));  //основной, выделяемый, обводка
+    my_menu.align_menu(2);  //выровняем меню левому краю
 
     //------БЕСКОНЕЧНОЕ
     //ОКНО------------------------------------------------------------------------------------------------

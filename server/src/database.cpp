@@ -94,6 +94,9 @@ void Database::give_avg_info_user(const User_info& client,
         Weather_info elem;
         elem.city = client.city;
         elem.date.date = row[2].as<std::string>();
+        for (size_t i = 0; i < 5; ++i) {
+            elem.date.date.erase(elem.date.date.begin());
+        }
         elem.temp = row[3].as<float>();
         elem.temp_feels_like = row[4].as<float>();
         elem.pressure = row[5].as<float>();

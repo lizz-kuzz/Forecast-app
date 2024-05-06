@@ -16,6 +16,8 @@ const std::string PATH_IMAGE =
 const std::string PATH_FONT_1 = "../front_end/res/font/PassionOne-Regular.ttf";
 const std::string PATH_IMAGE_1 =
     "../front_end/res/image/IMG_2439.JPG";
+const std::string PATH_IMAGE_6 =
+    "../front_end/res/image/IMG_20240506_214059_844.jpg";
 
 //------------------------------------------------------------------------------------------------------
 
@@ -86,41 +88,147 @@ void weath_today(const std::vector<Weather_info>& arr) {
       Vector2f(window_width, window_height));  //прямоугольник в размер окна
 
   Texture texture_window;                                 // (***)
-  if (!texture_window.loadFromFile(PATH_IMAGE)) exit(3);  // const str
+  if (!texture_window.loadFromFile(PATH_IMAGE_6)) exit(3);  // const str
   nday_background.setTexture(&texture_window);
 
   // Шрифт для названия экрана
   Font font;
-  if (!font.loadFromFile(PATH_FONT)) exit(4);
+  if (!font.loadFromFile(PATH_FONT_1)) exit(4);
 
   // Текст с названием экрана
   Text titul;
   titul.setFont(font);
 
   TextFormat Ftext;
-  Ftext.size_font = 120;
-  Ftext.menu_text_color = Color::White;
-  Ftext.bord = 3;
-  init_text(titul, 500, 50, "Weather for today", Ftext);
+  Ftext.size_font = 150;
+    Ftext.menu_text_color = Color(76, 93, 182);     //цвет текста
+    Ftext.bord = 3;                                 //толщина обводки букв
+    Ftext.border_color = Color(220, 224, 244);      //цвет обводки
+  init_text(titul, 500, 100, "Weather for today", Ftext);
+
+
+  char ascii_deg = (char)176;
+  std::string degree_sign;
+  degree_sign += ascii_deg;
 
   // Текст с погодой
-  Text weather;
-  weather.setFont(font);
+  Text weather1;
+  weather1.setFont(font);
 
   TextFormat Ftext_w;
-  Ftext_w.size_font = 50;
-  Ftext_w.menu_text_color = Color(175, 238, 238);
+  Ftext_w.size_font = 70;
+  Ftext_w.menu_text_color =  Color(119, 132, 204);
   Ftext_w.bord = 3;
-  init_text(weather, 100, 200, "", Ftext_w);
+  init_text(weather1, 100, 300, "", Ftext_w);
   std::string info1 =
-      " data : " + arr[0].date.date +
-      " \n tempr : " + fmt::format("{:.1f}", arr[0].temp) +
-      " \n feels like : " + fmt::format("{:.1f}", arr[0].temp_feels_like) +
-      " \n pressure : " + fmt::format("{:.1f}", arr[0].pressure) +
-      " \n wind : " + fmt::format("{:.1f}", arr[0].wind) + "";
-  weather.setLetterSpacing(2);
-  weather.setOutlineColor(Color(62, 95, 138));
-  weather.setString(info1);
+      " date : \n tempr, c :  \n feels like, c :  \n press, mmHg :  \n wind, m/s : ";
+  weather1.setLetterSpacing(2);
+  weather1.setOutlineColor(Color(220, 224, 244));
+  weather1.setString(info1);
+
+  //   // Текст с погодой
+  // Text weather2;
+  // weather2.setFont(font);
+
+  // init_text(weather2, 600, 300, "", Ftext_w);
+
+  // std::string info2 =
+  //     "" +   arr[0].date.date                              + "    " + arr[1].date.date +                                + "    " + arr[2].date.date                                  + "   " + arr[3].date.date                                   + "    " + arr[4].date.date +                               
+  //     "\n" + fmt::format("{:.1f}", arr[0].temp)            + "       " + fmt::format("{:.1f}", arr[1].temp)             + "        " + fmt::format("{:.1f}", arr[2].temp)             +  "       " + fmt::format("{:.1f}", arr[3].temp)            + "       " + fmt::format("{:.1f}", arr[4].temp) +            
+  //     "\n" + fmt::format("{:.1f}", arr[0].temp_feels_like) + "        " + fmt::format("{:.1f}", arr[1].temp_feels_like) + "        " + fmt::format("{:.1f}", arr[2].temp_feels_like) + "        " + fmt::format("{:.1f}", arr[3].temp_feels_like) + "        " + fmt::format("{:.1f}", arr[4].temp_feels_like) +
+  //     "\n" + fmt::format("{:.0f}", arr[0].pressure)        + "      " + fmt::format("{:.0f}", arr[1].pressure)            + "       " + fmt::format("{:.0f}", arr[2].pressure)            + "      " + fmt::format("{:.0f}", arr[3].pressure)            + "       " + fmt::format("{:.0f}", arr[4].pressure) +           
+  //     "\n" + fmt::format("{:.1f}", arr[0].wind)            + "         " + fmt::format("{:.1f}", arr[1].wind)           + "         " + fmt::format("{:.1f}", arr[2].wind)           + "        " + fmt::format("{:.1f}", arr[3].wind)            + "        " + fmt::format("{:.1f}", arr[4].wind)          + "";
+  // weather2.setLetterSpacing(2);
+  // weather2.setOutlineColor(Color(220, 224, 244));
+  // weather2.setString(info2);
+
+  size_t grid_x_base = 600;
+  size_t grid_x_step = 260;
+
+  Text weather2;
+  weather2.setFont(font);
+
+  init_text(weather2, grid_x_base + grid_x_step*0 , 300, "", Ftext_w);
+  std::string info2 =
+      "" + arr[0].date.date +
+      "\n" + fmt::format("{:.1f}", arr[0].temp) +
+      "\n" + fmt::format("{:.1f}", arr[0].temp_feels_like) +
+      "\n" + fmt::format("{:.0f}", arr[0].pressure/133.322*100) +
+      "\n" + fmt::format("{:.1f}", arr[0].wind) + "";
+  weather2.setLetterSpacing(2);
+  weather2.setOutlineColor(Color(220, 224, 244));
+  weather2.setString(info2);
+
+  Text weather3;
+  weather3.setFont(font);
+
+  init_text(weather3, grid_x_base + grid_x_step*1, 300, "", Ftext_w);
+  std::string info3 =
+      "" + arr[1].date.date +
+      "\n" + fmt::format("{:.1f}", arr[1].temp) +
+      "\n" + fmt::format("{:.1f}", arr[1].temp_feels_like) +
+      "\n" + fmt::format("{:.0f}", arr[1].pressure/133.322*100) +
+      "\n" + fmt::format("{:.1f}", arr[1].wind) + "";
+  weather3.setLetterSpacing(2);
+  weather3.setOutlineColor(Color(220, 224, 244));
+  weather3.setString(info3);
+
+  Text weather4;
+  weather4.setFont(font);
+
+  init_text(weather4, grid_x_base + grid_x_step*2, 300, "", Ftext_w);
+  std::string info4 =
+      "" + arr[2].date.date +
+      "\n" + fmt::format("{:.1f}", arr[2].temp) +
+      "\n" + fmt::format("{:.1f}", arr[2].temp_feels_like) +
+      "\n" + fmt::format("{:.0f}", arr[2].pressure/133.322*100) +
+      "\n" + fmt::format("{:.1f}", arr[2].wind) + "";
+  weather4.setLetterSpacing(2);
+  weather4.setOutlineColor(Color(220, 224, 244));
+  weather4.setString(info4);
+
+  Text weather5;
+  weather5.setFont(font);
+
+  init_text(weather5, grid_x_base + grid_x_step*3, 300, "", Ftext_w);
+  std::string info5 =
+      "" + arr[3].date.date +
+      "\n" + fmt::format("{:.1f}", arr[3].temp) +
+      "\n" + fmt::format("{:.1f}", arr[3].temp_feels_like) +
+      "\n" + fmt::format("{:.0f}", arr[3].pressure/133.322*100) +
+      "\n" + fmt::format("{:.1f}", arr[3].wind) + "";
+  weather5.setLetterSpacing(2);
+  weather5.setOutlineColor(Color(220, 224, 244));
+  weather5.setString(info5);
+
+  Text weather6;
+  weather6.setFont(font);
+
+  init_text(weather6, grid_x_base + grid_x_step*4, 300, "", Ftext_w);
+  std::string info6 =
+      "" + arr[4].date.date +
+      "\n" + fmt::format("{:.1f}", arr[4].temp) +
+      "\n" + fmt::format("{:.1f}", arr[4].temp_feels_like) +
+      "\n" + fmt::format("{:.0f}", arr[4].pressure/133.322*100) +
+      "\n" + fmt::format("{:.1f}", arr[4].wind) + "";
+  weather6.setLetterSpacing(2);
+  weather6.setOutlineColor(Color(220, 224, 244));
+  weather6.setString(info6);
+
+
+
+  //------------Рисуем сетку--------------------------------------------------
+
+  int columns = 6;
+  int rows = 4;
+  sf::RectangleShape grid_g[columns][rows]; //gorizontal
+  sf::RectangleShape grid_v[columns][rows]; //vertical
+
+  double start_x = 80;
+  double start_y = 390;
+  double step_x = 300;
+  double step_y = 77;
+
 
   //--------------------------------------------------------------------------
 
@@ -138,7 +246,40 @@ void weath_today(const std::vector<Weather_info>& arr) {
     nday_window.clear();
     nday_window.draw(nday_background);
     nday_window.draw(titul);
-    nday_window.draw(weather);
+    nday_window.draw(weather1);
+    nday_window.draw(weather2);
+    nday_window.draw(weather3);
+    nday_window.draw(weather4);
+    nday_window.draw(weather5);
+    nday_window.draw(weather6);
+    
+    for(int i=0;i<columns;i++)
+    {
+      for(int j=0;j<rows;j++)
+      {
+        grid_g[i][j].setSize(sf::Vector2f(step_x, 0.1));
+        grid_g[i][j].setOutlineThickness(4);
+        grid_g[i][j].setOutlineColor(sf::Color(103, 120, 201));
+        grid_g[i][j].setFillColor(sf::Color::Transparent);
+
+        grid_g[i][j].setPosition(i*step_x + start_x, j*step_y + start_y);
+
+        nday_window.draw(grid_g[i][j]);
+
+        if(i > 1)
+        {
+          grid_v[i][j].setSize(sf::Vector2f(0.1, step_y + 18));
+          grid_v[i][j].setOutlineThickness(4);
+          grid_v[i][j].setOutlineColor(sf::Color(103, 120, 201));
+          grid_v[i][j].setFillColor(sf::Color::Transparent);
+
+          grid_v[i][j].setPosition(i*(step_x-40) + start_x + 200, j*(step_y + 18) + start_y - 77);
+
+          nday_window.draw(grid_v[i][j]);
+        }
+      }
+    }    
+
     nday_window.display();
   }
 }
