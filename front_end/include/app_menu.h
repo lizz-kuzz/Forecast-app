@@ -26,12 +26,12 @@ private:
 
 	// Настройка текста меню
 	void set_init_text(sf::Text& text, const std::string& str, float xpos,
-						float ypos) const;
+						float ypos, int let_space) const;
 
 public:
 	//конструктор
 	Menu(sf::RenderWindow& window, float menux, float menuy, int sizeFont,
-		int step, std::vector<std::string>& name);
+		int step, std::vector<std::string>& name, int let_space);
 
 	~Menu(){};  //деструктор
 

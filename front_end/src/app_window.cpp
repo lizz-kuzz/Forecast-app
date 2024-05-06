@@ -13,6 +13,10 @@ const std::string PATH_FONT = "../front_end/res/font/BlissproMedium.otf";
 const std::string PATH_IMAGE =
     "../front_end/res/image/goluboj_tsvet_fon_1920x1080.jpg";
 
+const std::string PATH_FONT_1 = "../front_end/res/font/PassionOne-Regular.ttf";
+const std::string PATH_IMAGE_1 =
+    "../front_end/res/image/IMG_2439.JPG";
+
 //------------------------------------------------------------------------------------------------------
 
 //функция создания окна //нельзя возвращать и присваивать sf::RenderWindow

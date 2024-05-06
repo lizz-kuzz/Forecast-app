@@ -15,7 +15,17 @@ const std::string simple_blue_bg =
 const std::string simple_thick_font =
     "../front_end/res/font/BlissproMedium.otf";
 
-const size_t MAX_NAME_SIZE = 10;
+const std::string PATH_FONT_1 = "../front_end/res/font/PassionOne-Regular.ttf";
+const std::string PATH_IMAGE_1 =
+    "../front_end/res/image/IMG_2439.JPG";
+const std::string PATH_IMAGE_2 =
+    "../front_end/res/image/IMG_2441.JPG";
+const std::string PATH_IMAGE_3 =
+    "../front_end/res/image/IMG_2452.JPG";
+const std::string PATH_IMAGE_4 =
+    "../front_end/res/image/IMG_20240506_150214_141.jpg";
+
+const size_t MAX_NAME_SIZE = 25;
 
 //--------------------------------------------------------------------------------------------------
 
@@ -33,14 +43,14 @@ User_mode_t window_choose_mode() {
         Vector2f(window_width, window_height));  //прямоугольник в размер окна
 
     Texture texture_window;  // (***)
-    if (!texture_window.loadFromFile(simple_blue_bg)) return user_mode;
+    if (!texture_window.loadFromFile(PATH_IMAGE_1)) return user_mode;
     background.setTexture(&texture_window);
 
     //------------------------------------------------------------------------------------------------------
 
     // Шрифт для названия экрана
     sf::Font font;  //объект шрифт // (***)
-    if (!font.loadFromFile(simple_thick_font)) return user_mode;
+    if (!font.loadFromFile(PATH_FONT_1)) return user_mode;
 
     // Текст с названием экрана
     sf::Text titul;  //объект заголовок
@@ -48,25 +58,25 @@ User_mode_t window_choose_mode() {
 
     TextFormat Ftext;
     Ftext.size_font = 150;                          //размер шрифта
-    Ftext.menu_text_color = Color(0, 191, 255);     //цвет текста
+    Ftext.menu_text_color = Color(76, 93, 182);     //цвет текста
     Ftext.bord = 3;                                 //толщина обводки букв
-    Ftext.border_color = Color(255, 255, 255);      //цвет обводки
-    init_text(titul, 400, 50, "Hello! Choose mode", Ftext);  // 7000, 50 - позиция
+    Ftext.border_color = Color(220, 224, 244);      //цвет обводки
+    init_text(titul, 500, 100, "          Hello! \n    Choose mode", Ftext);  // 7000, 50 - позиция
 
     //------НАСТРОЙКА
     //МЕНЮ------------------------------------------------------------------------------------------------
 
     // Название пунктов меню
-    std::vector<std::string> name_menu{"Authorization", "Registration"};
+    std::vector<std::string> name_menu{"  log in", " sign up"};
 
     // Создаем объект меню
     App::Menu my_menu(
-        window, 150, 350, 100, 120,
-        name_menu);  //окно, координаты, размер шрифта, шаг, массив названий
+        window, 720, 490, 180, 190,
+        name_menu, 1);  //окно, координаты, размер шрифта, шаг, массив названий
 
     // Установка цвета отображения меню
-    my_menu.set_color_text_menu(Color::White, Color(175, 238, 238),
-                                Color::White);  //основной, выделяемый, обводка
+    my_menu.set_color_text_menu(Color(220, 224, 244), Color(119, 132, 204),
+                                Color(220, 224, 244));  //основной, выделяемый, обводка
     my_menu.align_menu(0);  //выровняем меню левому краю
 
     //------БЕСКОНЕЧНОЕ
@@ -134,14 +144,14 @@ std::string window_choose_name() {
         Vector2f(window_width, window_height));  //прямоугольник в размер окна
 
     Texture texture_window;  // (***)
-    if (!texture_window.loadFromFile(simple_blue_bg)) return user_name;
+    if (!texture_window.loadFromFile(PATH_IMAGE_2)) return user_name;
     background.setTexture(&texture_window);
 
     //------------------------------------------------------------------------------------------------------
 
     // Шрифт для названия экрана
     sf::Font font;  //объект шрифт // (***)
-    if (!font.loadFromFile(simple_thick_font)) return user_name;
+    if (!font.loadFromFile(PATH_FONT_1)) return user_name;
 
     // Текст с названием экрана
     sf::Text titul;  //объект заголовок
@@ -149,20 +159,20 @@ std::string window_choose_name() {
 
     TextFormat Ftext;
     Ftext.size_font = 150;                       //размер шрифта
-    Ftext.menu_text_color = Color(0, 191, 255);  //цвет текста
+    Ftext.menu_text_color = sf::Color(76, 93, 182);  //цвет текста
     Ftext.bord = 3;  //толщина обводки букв
-    Ftext.border_color = Color(255, 255, 255);  //цвет обводки
-    init_text(titul, 400, 50, "Enter your name", Ftext);  // 7000, 50 - позиция
+    Ftext.border_color = sf::Color(242, 237, 253);  //цвет обводки
+    init_text(titul, 500, 300, "Enter your name", Ftext);  // 7000, 50 - позиция
 
     //------------------------------------------------------------------------------------------------------
 
     //рисуем рамку
     sf::RectangleShape shape(sf::Vector2f(700, 700));
     shape.setSize(sf::Vector2f(1300, 200));
-    shape.setPosition(sf::Vector2f(300, 360));
+    shape.setPosition(sf::Vector2f(310, 650));
     shape.setOutlineThickness(10);
-    shape.setOutlineColor(sf::Color(255, 255, 255));
-    shape.setFillColor(sf::Color::Transparent);
+    shape.setOutlineColor(sf::Color(103, 120, 201));
+    shape.setFillColor(sf::Color(242, 237, 253));
 
     //------------------------------------------------------------------------------------------------------
 
@@ -174,10 +184,10 @@ std::string window_choose_name() {
 
     TextFormat F_ntext;
     F_ntext.size_font = 100;                        //размер шрифта
-    F_ntext.menu_text_color = Color(175, 238, 238); //цвет текста
+    F_ntext.menu_text_color = sf::Color(119, 132, 204); //цвет текста
     F_ntext.bord = 3;                               //толщина обводки букв
-    F_ntext.border_color = Color(255, 255, 255);    //цвет обводки
-    init_text(playerText, 700, 400, "", F_ntext);   // 7000, 50 - позиция
+    F_ntext.border_color = sf::Color(242, 237, 253);    //цвет обводки
+    init_text(playerText, 360, 690, "", F_ntext);   // 7000, 50 - позиция
 
     size_t name_size = 0;
 
@@ -235,14 +245,14 @@ User_city_t window_choose_city() {
         Vector2f(window_width, window_height));  //прямоугольник в размер окна
 
     Texture texture_window;  // (***)
-    if (!texture_window.loadFromFile(simple_blue_bg)) return user_city;
+    if (!texture_window.loadFromFile(PATH_IMAGE_3)) return user_city;
     background.setTexture(&texture_window);
 
     //------------------------------------------------------------------------------------------------------
 
     // Шрифт для названия экрана
     sf::Font font;  //объект шрифт // (***)
-    if (!font.loadFromFile(simple_thick_font)) return user_city;
+    if (!font.loadFromFile(PATH_FONT_1)) return user_city;
 
     // Текст с названием экрана
     sf::Text titul;  //объект заголовок
@@ -250,27 +260,27 @@ User_city_t window_choose_city() {
 
     TextFormat Ftext;
     Ftext.size_font = 150;                      //размер шрифта
-    Ftext.menu_text_color = Color(0, 191, 255); //цвет текста
+    Ftext.menu_text_color = Color(76, 93, 182); //цвет текста
     Ftext.bord = 3;                             //толщина обводки букв
-    Ftext.border_color = Color(255, 255, 255);  //цвет обводки
-    init_text(titul, 400, 50, "Choose your city", Ftext);  // 7000, 50 - позиция
+    Ftext.border_color = Color(220, 224, 244);  //цвет обводки
+    init_text(titul, 500, 100, "Choose your city", Ftext);  // 7000, 50 - позиция
 
     //------НАСТРОЙКА
     //МЕНЮ------------------------------------------------------------------------------------------------
 
     // Название пунктов меню
-    std::vector<std::string> name_menu{"Moscow", "StPetersburg", "Novosibirsk",
+    std::vector<std::string> name_menu{"Moscow", "St.Petersburg", "Novosibirsk",
                                         "Yekaterinburg", "Dolgoprudny"};
 
     // Создаем объект меню
     App::Menu my_menu(
-        window, 150, 350, 100, 120,
-        name_menu);  //окно, координаты, размер шрифта, шаг, массив названий
+        window, 950, 300, 100, 120,
+        name_menu, 2);  //окно, координаты, размер шрифта, шаг, массив названий
 
     // Установка цвета отображения меню
-    my_menu.set_color_text_menu(Color::White, Color(175, 238, 238),
-                                Color::White);  //основной, выделяемый, обводка
-    my_menu.align_menu(0);  //выровняем меню левому краю
+    my_menu.set_color_text_menu(Color(220, 224, 244), Color(119, 132, 204),
+                                Color(220, 224, 244));  //основной, выделяемый, обводка
+    my_menu.align_menu(2);  //выровняем меню левому краю
 
     //------БЕСКОНЕЧНОЕ
     //ОКНО------------------------------------------------------------------------------------------------
@@ -345,14 +355,14 @@ size_t window_show_city(User_city_t user_city) {
         Vector2f(window_width, window_height));  //прямоугольник в размер окна
 
     Texture texture_window;  // (***)
-    if (!texture_window.loadFromFile(simple_blue_bg)) return change_city;
+    if (!texture_window.loadFromFile(PATH_IMAGE_4)) return change_city;
     background.setTexture(&texture_window);
 
     //------------------------------------------------------------------------------------------------------
 
     // Шрифт для названия экрана
     sf::Font font;  //объект шрифт // (***)
-    if (!font.loadFromFile(simple_thick_font)) return change_city;
+    if (!font.loadFromFile(PATH_FONT_1)) return change_city;
 
     // Текст с названием экрана
     sf::Text titul;  //объект заголовок
@@ -360,10 +370,10 @@ size_t window_show_city(User_city_t user_city) {
 
     TextFormat Ftext;
     Ftext.size_font = 150;                      //размер шрифта
-    Ftext.menu_text_color = Color(0, 191, 255); //цвет текста
-    Ftext.bord = 3;                             //толщина обводки букв
-    Ftext.border_color = Color(255, 255, 255);  //цвет обводки
-    init_text(titul, 400, 50, "Your city is:", Ftext);  // 7000, 50 - позиция
+    Ftext.menu_text_color = Color(76, 93, 182);     //цвет текста
+    Ftext.bord = 3;                                 //толщина обводки букв
+    Ftext.border_color = Color(220, 224, 244);      //цвет обводки
+    init_text(titul, 650, 160, "Your city is:", Ftext);  // 7000, 50 - позиция
 
     //------ВЫВОД ГОРОДА
     //ПОЛЬЗОВАТЕЛЯ------------------------------------------------------------------------------------
@@ -376,7 +386,7 @@ size_t window_show_city(User_city_t user_city) {
             break;
         }
         case STPETESBURG: {
-            city_name = "StPetersburg";
+            city_name = "St.Petersburg";
             break;
         }
         case NOVOSIBIRSK: {
@@ -401,26 +411,26 @@ size_t window_show_city(User_city_t user_city) {
 
     TextFormat City_Ftext;
     City_Ftext.size_font = 100;  //размер шрифта
-    City_Ftext.menu_text_color = Color(175, 238, 238);  //цвет текста
+    City_Ftext.menu_text_color = Color(119, 132, 204);  //цвет текста
     City_Ftext.bord = 3;  //толщина обводки букв
-    City_Ftext.border_color = Color(255, 255, 255);  //цвет обводки
-    init_text(text_city_name, 700, 300, city_name,
+    City_Ftext.border_color = Color(220, 224, 244);  //цвет обводки
+    init_text(text_city_name, 700, 420, city_name,
                 City_Ftext);  // 7000, 50 - позиция
 
     //рисуем рамку
     sf::RectangleShape shape(sf::Vector2f(700, 700));
-    shape.setSize(sf::Vector2f(1300, 200));
-    shape.setPosition(sf::Vector2f(300, 260));
+    shape.setSize(sf::Vector2f(700, 150));
+    shape.setPosition(sf::Vector2f(620, 420));
     shape.setOutlineThickness(10);
-    shape.setOutlineColor(sf::Color(255, 255, 255));
-    shape.setFillColor(sf::Color::Transparent);
+    shape.setOutlineColor(sf::Color(103, 120, 201));
+    shape.setFillColor(sf::Color(216, 213, 249));
 
     //------НАСТРОЙКА
     //МЕНЮ------------------------------------------------------------------------------------------------
 
     sf::Text question_change_city;  //объект заголовок
     question_change_city.setFont(font);
-    init_text(question_change_city, 400, 450, "Change your city?",
+    init_text(question_change_city, 500, 540, "Change your city?",
                 Ftext);  // 7000, 50 - позиция
 
     // Название пунктов меню
@@ -428,13 +438,13 @@ size_t window_show_city(User_city_t user_city) {
 
     // Создаем объект меню
     App::Menu my_menu(
-        window, 150, 600, 100, 120,
-        name_menu);  //окно, координаты, размер шрифта, шаг, массив названий
+        window, 960, 720, 120, 120,
+        name_menu, 2);  //окно, координаты, размер шрифта, шаг, массив названий
 
     // Установка цвета отображения меню
-    my_menu.set_color_text_menu(Color::White, Color(175, 238, 238),
-                                Color::White);  //основной, выделяемый, обводка
-    my_menu.align_menu(0);  //выровняем меню левому краю
+    my_menu.set_color_text_menu(Color(220, 224, 244), Color(119, 132, 204),
+                                Color(220, 224, 244));  //основной, выделяемый, обводка
+    my_menu.align_menu(2);  //выровняем меню левому краю
 
     //------БЕСКОНЕЧНОЕ
     //ОКНО------------------------------------------------------------------------------------------------
@@ -478,9 +488,10 @@ size_t window_show_city(User_city_t user_city) {
 
         window.draw(background);
         window.draw(titul);
-        window.draw(text_city_name);
+  
         window.draw(question_change_city);
         window.draw(shape);
+        window.draw(text_city_name);
         my_menu.draw();
 
         window.display();
@@ -550,7 +561,7 @@ int window_main(const std::vector<Weather_info>& arr) {
     // Создаем объект меню
     App::Menu my_menu(
         start_window, 150, 350, 100, 120,
-        name_menu);  //окно, координаты, размер шрифта, шаг, массив названий
+        name_menu, 1);  //окно, координаты, размер шрифта, шаг, массив названий
 
     // Установка цвета отображения меню
     my_menu.set_color_text_menu(Color::White, Color(175, 238, 238),

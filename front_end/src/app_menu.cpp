@@ -7,11 +7,12 @@ using namespace sf;
 //------------------------------------------------------------------------------------------------------
 
 const std::string PATH_FONT = "../front_end/res/font/BlissproMedium.otf";
+const std::string PATH_FONT_1 = "../front_end/res/font/PassionOne-Regular.ttf";
 //конструктор //size_t //++i
 //передаем ссылку на графическое окно, координаты меню, массив названий пунктов
 //меню
 App::Menu::Menu(sf::RenderWindow& window, float menux, float menuy,
-                int sizeFont, int step, std::vector<std::string>& name)
+                int sizeFont, int step, std::vector<std::string>& name, int let_space)
     : menu_X(menux),
       menu_Y(menuy),
       menu_Step(step),
@@ -20,13 +21,13 @@ App::Menu::Menu(sf::RenderWindow& window, float menux, float menuy,
       main_menu(name.size()),
       mywindow(window) {
   //загрузка шрифта
-  if (!font.loadFromFile(PATH_FONT)) exit(32);
+  if (!font.loadFromFile(PATH_FONT_1)) exit(32);
 
   for (int i = 0, ypos = static_cast<int>(menu_Y); i < max_menu;
        ++i, ypos += menu_Step) {
     set_init_text(
         main_menu[i], name[i], menu_X,
-        static_cast<float>(ypos));  //инициальзируем пункты меню, данным
+        static_cast<float>(ypos), let_space);  //инициальзируем пункты меню, данным
                                     //масивом, сдвигаемся вниз на step
   }
 
@@ -39,7 +40,7 @@ App::Menu::Menu(sf::RenderWindow& window, float menux, float menuy,
 
 // Настройка текста меню
 void App::Menu::set_init_text(sf::Text& text, const std::string& str,
-                              float xpos, float ypos) const {
+                              float xpos, float ypos, int let_space) const {
   text.setCharacterSize(size_font);    //размер шрифта
   text.setPosition(xpos, ypos);        //положение надписи
   text.setString(str);                 //содержание надписи
@@ -47,6 +48,7 @@ void App::Menu::set_init_text(sf::Text& text, const std::string& str,
   text.setOutlineThickness(3);         //толщина обводки
   text.setOutlineColor(border_color);  //цвет обводки
   text.setFont(font);                  //шрифт текста
+  text.setLetterSpacing(let_space);
 }
 
 // Выравнивание положения меню(согласно заданным параметрам)
