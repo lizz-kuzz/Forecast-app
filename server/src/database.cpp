@@ -18,27 +18,21 @@ void Database::add_info_user(const User_info& client) {
             "insert into weather(user_name, city, data_,"
             "time_, temp, temp_feels_like, pressure, "
             "wind, type_) "
-            "values"
-            "('" +
-            client.name + "', " + std::to_string(client.city) + ", '" +
-            city_weather.arr[i].date.date + "', '" + city_weather.arr[i].date.time +
-            "', " + std::to_string(city_weather.arr[i].temp) + ", " +
-            std::to_string(city_weather.arr[i].temp_feels_like) + ", " +
-            std::to_string(city_weather.arr[i].pressure) + ", " +
-            std::to_string(city_weather.arr[i].wind) + ", " +
-            std::to_string(city_weather.arr[i].type) + ");"};
+            "values" +
+            fmt::format("('{}', {}, '{}', '{}', {:.4f}, {:.4f}, {:.4f}, {:.4f}, {});", client.name, client.city,
+            city_weather.arr[i].date.date, city_weather.arr[i].date.time, 
+            city_weather.arr[i].temp, city_weather.arr[i].temp_feels_like,
+            city_weather.arr[i].pressure, city_weather.arr[i].wind, 
+            city_weather.arr[i].type)};
         pqxx::result res_request{request.exec(sql_request.c_str())};
     }
-    }
+}
 
-    void Database::update_info_user(const User_info& client) {
+void Database::update_info_user(const User_info& client) {
     std::string sql_request{
         "delete from weather "
-        "where user_name = '" +
-        client.name +
-        "' and "
-        "city = " +
-        std::to_string(client.city) + ";"};
+        "where user_name = " +
+        fmt::format("'{}' and city = {}",client.name, client.city) + ";"};
     pqxx::result res_request{request.exec(sql_request.c_str())};
     add_info_user(client);
 }
@@ -47,11 +41,8 @@ void Database::give_all_info_user(const User_info& client,
                                   std::vector<Weather_info>& arr) {
     std::string sql_request{
         "select * from weather "
-        "where user_name = '" +
-        client.name +
-        "' and "
-        "city = " +
-        std::to_string(client.city) + ";"};
+        "where user_name = " + 
+        fmt::format("'{}' and city = {}",client.name, client.city) + ";"};
 
     pqxx::result res_request{request.exec(sql_request.c_str())};
 
@@ -83,8 +74,8 @@ void Database::give_avg_info_user(const User_info& client,
         "avg(wind), "
         "avg(type_)"
         "from weather where weather.city = " +
-        std::to_string(client.city) + "and weather.user_name = '" + client.name +
-        "' group by weather.data_, "
+        fmt::format("{} and weather.user_name = '{}'", client.city,  client.name) +
+        " group by weather.data_, "
         "weather.city, weather.user_name "
         "order by weather.data_;"};
 
@@ -119,7 +110,7 @@ bool Database::is_info_exist(const User_info& client) {
         client.name +
         "' and "
         "city = " +
-        std::to_string(client.city) + ";"};
+        fmt::format("{}", client.city) + ";"};
     pqxx::result res_request{request.exec(sql_request.c_str())};
 
     return res_request.empty();
@@ -139,7 +130,7 @@ User_city_t Database::give_city_by_name(const User_info& client) {
     std::string sql_request{
         "select city from weather "
         "where user_name = '" +
-        client.name + "';"};
+        fmt::format("{}", client.name) + "';"};
     pqxx::result res_request{request.exec(sql_request.c_str())};
 
     return static_cast<User_city_t>(res_request.front()[0].as<int>());
@@ -149,9 +140,19 @@ void Database::give_city_coord(City_coord& city, const User_info& client) {
     std::string sql_request{
         "select * from city_coord "
         "where city = " +
-        std::to_string(client.city) + ";"};
+        fmt::format("{}", client.city) + ";"};
 
     pqxx::result res_request{request.exec(sql_request.c_str())};
     city.lat = res_request.front()[0].as<float>();
     city.lat = res_request.front()[1].as<float>();
+}
+
+void Database::change_city(const User_info& client) {
+    std::string sql_request{
+        "update weather "
+        "set city = " + fmt::format("{}", client.city) +
+        " where user_name = '" +
+        client.name + "';"};
+
+    pqxx::result res_request{request.exec(sql_request.c_str())};
 }
