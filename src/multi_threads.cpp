@@ -38,7 +38,8 @@ void client_thread_funk(void) {
 
             if (shdata.name_exist == false) break;
 
-        // TODO: ADD FUNC with window this name already exist
+            // TODO: ADD FUNC with window this name already exist
+            window_name_error("This name already exist");
         }
 
         //==================GET CITY===========================
@@ -63,6 +64,7 @@ void client_thread_funk(void) {
             if (shdata.name_exist == true) break;
 
             // TODO: ADD FUNC with window that this name dont exist
+            window_name_error("This name doesn't exist");
         }
         //==================GET CITY===========================
 

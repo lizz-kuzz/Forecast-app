@@ -28,6 +28,8 @@ const std::string PATH_IMAGE_5 =
     "../front_end/res/image/IMG_2442.jpg";
 const std::string PATH_IMAGE_6 =
     "../front_end/res/image/IMG_20240506_214059_844.jpg";
+const std::string PATH_IMAGE_7 =
+    "../front_end/res/image/SL-042221-42420-04.jpg";
 
 const size_t MAX_NAME_SIZE = 25;
 
@@ -240,6 +242,75 @@ std::string window_choose_name() {
 
     user_name = playerInput.toAnsiString();
     return user_name;
+}
+
+int window_name_error(const std::string error_text)
+{
+    // Создаём окно window
+    sf::RenderWindow window;
+    create_window(window, window_width, window_height);
+
+    //------------------------------------------------------------------------------------------------------
+
+    // Устанавливаем фон экрана меню
+    sf::RectangleShape background(
+        Vector2f(window_width, window_height));  //прямоугольник в размер окна
+
+    Texture texture_window;  // (***)
+    if (!texture_window.loadFromFile(PATH_IMAGE_7)) return 2;
+    background.setTexture(&texture_window);
+
+    //------------------------------------------------------------------------------------------------------
+
+    // Шрифт для названия экрана
+    sf::Font font;  //объект шрифт // (***)
+    if (!font.loadFromFile(PATH_FONT_1)) return 2;
+
+    // Текст с названием экрана
+    sf::Text titul;  //объект заголовок
+    titul.setFont(font);
+
+    TextFormat Ftext;
+    Ftext.size_font = 150;                          //размер шрифта
+    Ftext.menu_text_color = Color(234, 97, 77);     //цвет текста
+    Ftext.bord = 3;                                 //толщина обводки букв
+    Ftext.border_color = Color(220, 224, 244);      //цвет обводки
+    init_text(titul, 800, 100, "Sorry!", Ftext);    // 7000, 50 - позиция
+
+    // Текст с ошибкой
+    sf::Text error_message;  //объект заголовок
+    error_message.setFont(font);
+
+    TextFormat Ftext_e;
+    Ftext_e.size_font = 100;                          //размер шрифта
+    Ftext_e.menu_text_color = Color(119, 132, 204);   //цвет текста
+    Ftext_e.bord = 3;                                 //толщина обводки букв
+    Ftext_e.border_color = Color(220, 224, 244);      //цвет обводки
+    init_text(error_message, 550, 350, error_text + "\n\n       Please put ESC \n\n       and try again", Ftext_e);    // 7000, 50 - позиция
+
+
+    //------БЕСКОНЕЧНОЕ
+    //ОКНО------------------------------------------------------------------------------------------------
+
+    //окно будет открыто, пока его не закроют клавищей Escape
+    while (window.isOpen()) {
+        sf::Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == Event::Closed ||
+                        event.key.code == Keyboard::Escape) {
+                window.close();
+            }
+        }
+
+        // Отрисовка всех объектов
+        window.clear();
+
+        window.draw(background);
+        window.draw(titul);
+        window.draw(error_message);
+
+        window.display();
+    }   
 }
 
 User_city_t window_choose_city() {
