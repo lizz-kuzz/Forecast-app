@@ -567,7 +567,7 @@ int window_main(const std::vector<Weather_info>& arr) {
     // font_file_name);
 
     // Название пунктов меню
-    std::vector<std::string> name_menu{"today", "tomorrow", "3 days", "10 days"};
+    std::vector<std::string> name_menu{"today", "tomorrow", "3 days", "5 days"};
 
     // Создаем объект меню
     App::Menu my_menu(
@@ -612,7 +612,7 @@ int window_main(const std::vector<Weather_info>& arr) {
                         break;
                     }
                     case 3: {
-                        weath_10days(arr);
+                        weath_5days(arr);
                         break;
                     }
                     default: {
