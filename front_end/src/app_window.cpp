@@ -24,7 +24,7 @@ const std::string PATH_PIC_SUN =
 const std::string PATH_PIC_CLOUD =
     "../front_end/res/image/Clipped_image_20240507_130538.png";
 const std::string PATH_PIC_RAIN =
-    "../front_end/res/image/Clipped_image_20240507_130845.png";
+    "../front_end/res/image/IMG_2467.png";
 
 
 //------------------------------------------------------------------------------------------------------
