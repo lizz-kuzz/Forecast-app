@@ -93,7 +93,7 @@ void client_thread_funk(void) {
 
     //==================SHOW MAIN MENU===========================
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    std::this_thread::sleep_for(std::chrono::milliseconds(20));
     thread.mutex.lock();
     window_main(shdata.arr);
 
@@ -126,7 +126,7 @@ void server_thread_funk(void) {
                         << "client " << shdata.user.name
                         << " city: " << shdata.user.city << std::endl;
             } else if (thread.cmd == CHANGE_CITY) {
-                // pu pu pu
+                db.change_city(shdata.user);
             } else if (thread.cmd == BREAK_THR2) {
                 break;
             } else if (thread.cmd == GIVE_INFO) {
@@ -136,7 +136,7 @@ void server_thread_funk(void) {
         }
         thread.give_cmd = false;
         thread.mutex.unlock();
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
     std::cout << "Thread 2 end" << std::endl;
 }

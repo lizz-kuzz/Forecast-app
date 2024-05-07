@@ -2,6 +2,7 @@
 
 #include <optional>
 #include <pqxx/pqxx>
+#include <fmt/core.h>
 
 #include "http_request.h"
 #include "json_parsing.h"
@@ -22,7 +23,7 @@ private:
 public:
     Database() = default;
     ~Database();
-
+    void change_city(const User_info& client);
     void add_info_user(const User_info& client);
     void update_info_user(const User_info& client);
     void give_all_info_user(const User_info& client,
