@@ -1,25 +1,27 @@
 #pragma once
 
-#include "app_menu.h" 
+#include "app_menu.h"
 #include "weather.h"
 using namespace sf;
 
 struct TextFormat {
-    int size_font = 60;                     //размер шрифта
-    Color menu_text_color = Color::White;   //основной цвет букв
-    float bord = 0.0f;                      //толщина границы букв
-    Color border_color = Color::White;      //цвет границы букв
+  int size_font = 60;                    //размер шрифта
+  Color menu_text_color = Color::White;  //основной цвет букв
+  float bord = 0.0f;                  //толщина границы букв
+  Color border_color = Color::White;  //цвет границы букв
 };
 
 //------------------------------------------------------------------------------------------------------
 
 std::string name_weather_pic(Weather_t weather_type);
 
-sf::Sprite show_pic_weather(sf::Texture texture_pic, sf::Sprite sprite_pic, const std::string pic_name, float x_start,  float y_start, float x_scale,  float y_scale);
+sf::Sprite show_pic_weather(sf::Texture texture_pic, sf::Sprite sprite_pic,
+                            const std::string pic_name, float x_start,
+                            float y_start, float x_scale, float y_scale);
 
 //функция создания окна
-void create_window(sf::RenderWindow& window, const size_t window_width,
-                   const size_t window_height);
+void create_window(sf::RenderWindow& window, size_t window_width,
+                        size_t window_height);
 
 //функция выставления фона
 // int bacbackground_set(const std::string bg_file_name);

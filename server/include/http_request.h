@@ -9,8 +9,8 @@ const double DOLGOPA_LON = 37.503434;
 
 namespace HTTP {
 struct Request {
-    std::string buffer;
-    Request() = default;
-    void get_buffer_from_api(double lat = DOLGOPA_LAT, double lon = DOLGOPA_LON);
+  std::string buffer;
+  Request() = default;
+  void get_buffer_from_api(double lat = DOLGOPA_LAT, double lon = DOLGOPA_LON);
 };
 }  // namespace HTTP
