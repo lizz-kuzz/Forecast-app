@@ -19,7 +19,34 @@ const std::string PATH_IMAGE_1 =
 const std::string PATH_IMAGE_6 =
     "../front_end/res/image/IMG_20240506_214059_844.jpg";
 
+const std::string PATH_PIC_SUN =
+    "../front_end/res/image/Clipped_image_20240507_130758.png";
+const std::string PATH_PIC_CLOUD =
+    "../front_end/res/image/Clipped_image_20240507_130538.png";
+const std::string PATH_PIC_RAIN =
+    "../front_end/res/image/Clipped_image_20240507_130845.png";
+
+
 //------------------------------------------------------------------------------------------------------
+
+  std::string name_weather_pic(Weather_t weather_type)
+  {
+    if (weather_type == Clear_sky) return PATH_PIC_SUN;
+    else if (weather_type == Rain) return PATH_PIC_RAIN;
+    else return PATH_PIC_CLOUD;
+  }
+
+  sf::Sprite show_pic_weather(sf::Texture texture_pic, sf::Sprite sprite_pic, const std::string pic_name, float x_start,  float y_start, float x_scale,  float y_scale)
+ {
+  if (!texture_pic.loadFromFile(pic_name)) {std::cout << "Could not load enemy texture" << std::endl;}
+
+  sprite_pic.setTexture(texture_pic);
+
+  sprite_pic.setPosition(sf::Vector2f(x_start, y_start));
+  sprite_pic.scale(sf::Vector2f(x_scale , y_scale));
+
+  return sprite_pic;
+ }
 
 //функция создания окна //нельзя возвращать и присваивать sf::RenderWindow
 void create_window(sf::RenderWindow& window, const size_t window_width,
@@ -30,10 +57,6 @@ void create_window(sf::RenderWindow& window, const size_t window_width,
 
   //отключаем видимость курсора
   window.setMouseCursorVisible(false);
-
-  // Размер экрана(сохраняем значения)
-  auto width = static_cast<float>(VideoMode::getDesktopMode().width);
-  auto height = static_cast<float>(VideoMode::getDesktopMode().height);
 
   // return window;
 }
@@ -121,26 +144,11 @@ void weath_today(const std::vector<Weather_info>& arr) {
   Ftext_w.bord = 3;
   init_text(weather1, 100, 300, "", Ftext_w);
   std::string info1 =
-      " date : \n tempr, c :  \n feels like, c :  \n press, mmHg :  \n wind, m/s : ";
+      " date : \n tempr, c:   \n feels like, c:   \n press, mmHg:   \n wind, m/s:  ";
   weather1.setLetterSpacing(2);
   weather1.setOutlineColor(Color(220, 224, 244));
   weather1.setString(info1);
 
-  //   // Текст с погодой
-  // Text weather2;
-  // weather2.setFont(font);
-
-  // init_text(weather2, 600, 300, "", Ftext_w);
-
-  // std::string info2 =
-  //     "" +   arr[0].date.date                              + "    " + arr[1].date.date +                                + "    " + arr[2].date.date                                  + "   " + arr[3].date.date                                   + "    " + arr[4].date.date +                               
-  //     "\n" + fmt::format("{:.1f}", arr[0].temp)            + "       " + fmt::format("{:.1f}", arr[1].temp)             + "        " + fmt::format("{:.1f}", arr[2].temp)             +  "       " + fmt::format("{:.1f}", arr[3].temp)            + "       " + fmt::format("{:.1f}", arr[4].temp) +            
-  //     "\n" + fmt::format("{:.1f}", arr[0].temp_feels_like) + "        " + fmt::format("{:.1f}", arr[1].temp_feels_like) + "        " + fmt::format("{:.1f}", arr[2].temp_feels_like) + "        " + fmt::format("{:.1f}", arr[3].temp_feels_like) + "        " + fmt::format("{:.1f}", arr[4].temp_feels_like) +
-  //     "\n" + fmt::format("{:.0f}", arr[0].pressure)        + "      " + fmt::format("{:.0f}", arr[1].pressure)            + "       " + fmt::format("{:.0f}", arr[2].pressure)            + "      " + fmt::format("{:.0f}", arr[3].pressure)            + "       " + fmt::format("{:.0f}", arr[4].pressure) +           
-  //     "\n" + fmt::format("{:.1f}", arr[0].wind)            + "         " + fmt::format("{:.1f}", arr[1].wind)           + "         " + fmt::format("{:.1f}", arr[2].wind)           + "        " + fmt::format("{:.1f}", arr[3].wind)            + "        " + fmt::format("{:.1f}", arr[4].wind)          + "";
-  // weather2.setLetterSpacing(2);
-  // weather2.setOutlineColor(Color(220, 224, 244));
-  // weather2.setString(info2);
 
   size_t grid_x_base = 600;
   size_t grid_x_step = 260;
@@ -220,7 +228,7 @@ void weath_today(const std::vector<Weather_info>& arr) {
   //------------Рисуем сетку--------------------------------------------------
 
   int columns = 6;
-  int rows = 4;
+  int rows = 5;
   sf::RectangleShape grid_g[columns][rows]; //gorizontal
   sf::RectangleShape grid_v[columns][rows]; //vertical
 
@@ -231,6 +239,61 @@ void weath_today(const std::vector<Weather_info>& arr) {
 
 
   //--------------------------------------------------------------------------
+
+  // sf::Texture texture_sun;
+  // if (!texture_sun.loadFromFile(PATH_PIC_SUN)) {std::cout << "Could not load enemy texture" << std::endl;}
+  // sf::Sprite sprite_sun;
+  // sprite_sun.setTexture(texture_sun);
+  // sprite_sun.setPosition(sf::Vector2f(800,100));
+  // sprite_sun.scale(sf::Vector2f(0.5, 0.5));
+
+  for(int i = 0; i <= 4; i++)
+  {
+    std::cout << arr[i].type << "   ";
+  }
+  std::cout << std::endl;
+
+  sf::Texture texture1;
+  std::string path_pic1 = name_weather_pic(arr[0].type);
+  if (!texture1.loadFromFile(path_pic1)) {std::cout << "Could not load enemy texture" << std::endl;}
+  sf::Sprite sprite1;
+  sprite1.setTexture(texture1);
+  sprite1.setPosition(sf::Vector2f(1*(step_x-40) + start_x + 270, 4*(step_y + 22) + start_y - 77));
+  sprite1.scale(sf::Vector2f(0.5, 0.5));
+
+  sf::Texture texture2;
+  std::string path_pic2 = name_weather_pic(arr[1].type);
+  if (!texture2.loadFromFile(path_pic2)) {std::cout << "Could not load enemy texture" << std::endl;}
+  sf::Sprite sprite2;
+  sprite2.setTexture(texture2);
+  sprite2.setPosition(sf::Vector2f(2*(step_x-40) + start_x + 270, 4*(step_y + 22) + start_y - 77));
+  sprite2.scale(sf::Vector2f(0.5, 0.5));
+
+  sf::Texture texture3;
+  std::string path_pic3 = name_weather_pic(arr[2].type);
+  if (!texture3.loadFromFile(path_pic3)) {std::cout << "Could not load enemy texture" << std::endl;}
+  sf::Sprite sprite3;
+  sprite3.setTexture(texture3);
+  sprite3.setPosition(sf::Vector2f(3*(step_x-40) + start_x + 270, 4*(step_y + 22) + start_y - 77));
+  sprite3.scale(sf::Vector2f(0.5, 0.5));
+
+  sf::Texture texture4;
+  std::string path_pic4 = name_weather_pic(arr[3].type);
+  if (!texture4.loadFromFile(path_pic4)) {std::cout << "Could not load enemy texture" << std::endl;}
+  sf::Sprite sprite4;
+  sprite4.setTexture(texture4);
+  sprite4.setPosition(sf::Vector2f(4*(step_x-40) + start_x + 270, 4*(step_y + 22) + start_y - 77));
+  sprite4.scale(sf::Vector2f(0.5, 0.5));
+
+  sf::Texture texture5;
+  std::string path_pic5 = name_weather_pic(arr[4].type);
+  if (!texture5.loadFromFile(path_pic5)) {std::cout << "Could not load enemy texture" << std::endl;}
+  sf::Sprite sprite5;
+  sprite5.setTexture(texture5);
+  sprite5.setPosition(sf::Vector2f(5*(step_x-40) + start_x + 270, 4*(step_y + 22) + start_y - 77));
+  sprite5.scale(sf::Vector2f(0.5, 0.5));
+
+  //--------------Рисуем картинки----------------------------------------------
 
   while (nday_window.isOpen()) {
     Event nday_event;
@@ -262,23 +325,29 @@ void weath_today(const std::vector<Weather_info>& arr) {
         grid_g[i][j].setOutlineColor(sf::Color(103, 120, 201));
         grid_g[i][j].setFillColor(sf::Color::Transparent);
 
-        grid_g[i][j].setPosition(i*step_x + start_x, j*step_y + start_y);
+        grid_g[i][j].setPosition(i*step_x + start_x - 20, j*step_y + start_y);
 
         nday_window.draw(grid_g[i][j]);
 
-        if(i > 1)
+        if(i > 0)
         {
-          grid_v[i][j].setSize(sf::Vector2f(0.1, step_y + 18));
+          grid_v[i][j].setSize(sf::Vector2f(0.1, step_y + 26));
           grid_v[i][j].setOutlineThickness(4);
           grid_v[i][j].setOutlineColor(sf::Color(103, 120, 201));
           grid_v[i][j].setFillColor(sf::Color::Transparent);
 
-          grid_v[i][j].setPosition(i*(step_x-40) + start_x + 200, j*(step_y + 18) + start_y - 77);
+          grid_v[i][j].setPosition(i*(step_x-40) + start_x + 200, j*(step_y + 26) + start_y - 77);
 
           nday_window.draw(grid_v[i][j]);
         }
       }
     }    
+    
+    nday_window.draw(sprite1);
+    nday_window.draw(sprite2);
+    nday_window.draw(sprite3);
+    nday_window.draw(sprite4);
+    nday_window.draw(sprite5);
 
     nday_window.display();
   }
@@ -376,10 +445,10 @@ void weath_3days(const std::vector<Weather_info>& arr) {
   }
 }
 
-// окно погоды на 10 дней
-void weath_10days(const std::vector<Weather_info>& arr) {
+// окно погоды на 5 дней
+void weath_5days(const std::vector<Weather_info>& arr) {
   // Создаём окно nday_window
-  sf::RenderWindow nday_window(VideoMode(window_width, window_height), "10days",
+  sf::RenderWindow nday_window(VideoMode(window_width, window_height), "5days",
                                sf::Style::Default);
 
   // Устанавливаем фон экрана меню
@@ -402,7 +471,7 @@ void weath_10days(const std::vector<Weather_info>& arr) {
   Ftext.size_font = 120;
   Ftext.menu_text_color = Color::White;
   Ftext.bord = 3;
-  init_text(titul, 500, 50, "Weather for 6 days", Ftext);
+  init_text(titul, 500, 50, "Weather for 5 days", Ftext);
 
   while (nday_window.isOpen()) {
     Event nday_event;

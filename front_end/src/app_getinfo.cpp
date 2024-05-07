@@ -203,15 +203,22 @@ std::string window_choose_name() {
                 if (event.key.code == Keyboard::Enter) {
                     user_name = playerInput.toAnsiString();
                     return user_name;
+                } 
+                if (event.key.code == Keyboard::BackSpace && name_size >= 2) {
+                    playerInput.erase(name_size-2, 2);
+                    //  -= event.text.unicode;
+                    playerText.setString(playerInput);
+                    name_size -= 2;
                 }
             }
             if (event.type == sf::Event::TextEntered && name_size <= MAX_NAME_SIZE) {
                 if (event.text.unicode < 128) {
                     playerInput += event.text.unicode;
                     playerText.setString(playerInput);
-                    name_size++;
+                    ++name_size;
                     // std::cout << playerInput.toAnsiString() << std::endl;
                 }
+
             } else if (event.type == Event::Closed ||
                         event.key.code == Keyboard::Escape) {
                 window.close();

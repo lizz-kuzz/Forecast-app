@@ -13,6 +13,10 @@ struct TextFormat {
 
 //------------------------------------------------------------------------------------------------------
 
+std::string name_weather_pic(Weather_t weather_type);
+
+sf::Sprite show_pic_weather(sf::Texture texture_pic, sf::Sprite sprite_pic, const std::string pic_name, float x_start,  float y_start, float x_scale,  float y_scale);
+
 //функция создания окна
 void create_window(sf::RenderWindow& window, const size_t window_width,
                    const size_t window_height);
@@ -44,4 +48,4 @@ void init_text(Text& mtext, float xpos, float ypos, const std::string& str,
 void weath_today(const std::vector<Weather_info>& arr);
 void weath_tomorrow(const std::vector<Weather_info>& arr);
 void weath_3days(const std::vector<Weather_info>& arr);
-void weath_10days(const std::vector<Weather_info>& arr);
+void weath_5days(const std::vector<Weather_info>& arr);
