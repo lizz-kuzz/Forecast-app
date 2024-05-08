@@ -4,6 +4,7 @@ Parsing::Parsing(const std::string& buf) {
   json info;
 
   info = json::parse(buf);
+
   for (size_t i = 0; i < WEATHER_ARR_SIZE; ++i) {
     arr.push_back(Weather_info(info, i));
   }
